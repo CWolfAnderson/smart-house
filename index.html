@@ -29,9 +29,9 @@
 
     <h1>J.O.S.E.</h1>
 
-    <img src="http://www.clker.com/cliparts/Y/l/n/x/Z/l/stick-figure-man-black-hi.png" width="40" height="90" class="draggable user">
+    <img src="img/stick-figure.png" width="40" height="90" class="draggable user" id="home-owner1">
 
-    <img src="http://www.clker.com/cliparts/Y/l/n/x/Z/l/stick-figure-man-black-hi.png" width="40" height="90" class="draggable user">
+    <img src="img/stick-figure.png" width="40" height="90" class="draggable user" id="home-owner2">
 
     <div class="picture">
       <div id="bedroom1" class="room"><p>Bedroom 1</p></div>
@@ -45,7 +45,33 @@
     <div id="dialogbox">
       <div>
         <div id="dialogboxhead"></div>
-        <div id="dialogboxbody"></div>
+        <div id="dialogboxbody">
+          <div class='panel panel-info'>
+            <p>Mode:
+              <select name='mode' id='mode'>
+                <option value=''>-</option>
+                <option value='party'>party</option>
+                <option value='lock-down'>lock down</option>
+                <option value='study'>study</option>
+              </select>
+            </p>
+            <p>Light:
+              <select name='light' id='light'>
+                <option value=''>-</option>
+                <option value='low'>low</option>
+                <option value='medium'>medium</option>
+                <option value='high'>high</option>
+              </select>
+              <input type='color' id='light-color'>
+            </p>
+            <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
+              <input id='tempSlider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value)'>
+            </p>
+            <button onclick='alterRoom()'>Commit</button>
+
+          </div>
+
+        </div>
         <div id="dialogboxfoot"></div>
       </div>
     </div>
