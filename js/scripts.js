@@ -115,9 +115,15 @@ $(function() {
 
       // check light color""
       console.log($("#light-color").val());
-      console.log($("#roomId"));
-      if ($("#light-color").val()) {
-        $("#roomId").backgroundColor = $("#light-color").val();
+
+      if ($("#light-color").val() != "#000000") { // if light color is not black
+        console.log("light is not black");
+        $("#" + roomId).css("background-color", $("#light-color").val());
+
+        // reset color of color picker
+        $("#light-color").val("#000000");
+      } else {
+        console.log("light is black");
       }
 
       // check temperature
