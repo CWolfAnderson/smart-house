@@ -1,3 +1,7 @@
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
 .picture {
   height: auto;
   width: 100%;
@@ -68,7 +72,7 @@
 }
 #dialogbox > div{ background:#FFF; margin:8px; }
 #dialogbox > div > #dialogboxhead{ background: #666; font-size:19px; padding:10px; color:#CCC; }
-#dialogbox > div > #dialogboxbody{ background:#333; padding:20px; color:#FFF; }
+#dialogbox > div > #dialogboxbody{ background:#333; padding:20px; }
 #dialogbox > div > #dialogboxfoot{ background: #666; padding:10px; text-align:right; }
 
 /* end pop-up */
