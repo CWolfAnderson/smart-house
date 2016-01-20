@@ -15,8 +15,9 @@
 
 .room {
   position: absolute;
-  padding:10px;
-  border:1px solid #aaaaaa;
+  padding: 10px;
+  border: 1px solid #aaaaaa;
+  background-color: #ffffff;
 }
 
 #bedroom1 {

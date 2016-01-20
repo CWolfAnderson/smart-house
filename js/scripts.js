@@ -1,5 +1,11 @@
 $(function() {
 
+  function updateTemperature(value) {
+	  console.log(value);
+  }
+
+
+
   // create rooms
   var rooms = [];
 
@@ -63,6 +69,12 @@ $(function() {
 
   // for pop-up
   function popUp(roomId){
+
+	  	  // get current room color
+		  console.log("Room: " + roomId);
+	  var roomColor = $("#" + roomId).backgroundColor;
+	  console.log("Room color: " + roomColor);
+
     var winW = window.innerWidth;
     var winH = window.innerHeight;
     var dialogoverlay = document.getElementById('dialogoverlay');
@@ -72,9 +84,7 @@ $(function() {
     dialogbox.style.left = (winW/2) - (550 * 0.5) + "px";
     dialogbox.style.top = "100px";
     dialogbox.style.display = "block";
-
     document.getElementById('dialogboxhead').innerHTML = roomId;
-
     document.getElementById('dialogboxfoot').innerHTML = '<button onclick="ok()">OK</button>';
 
     this.ok = function(){
@@ -84,8 +94,6 @@ $(function() {
       document.getElementById('dialogoverlay').style.display = "none";
 
       // check mode
-
-      //console.log(document.getElementById('dialogbox'));
 
       console.log($("#mode"));
       console.log($("#mode").val());
@@ -107,6 +115,7 @@ $(function() {
 
     };
 
-  }
+  } // end popup
+
 
 });
