@@ -1,10 +1,13 @@
 $(function() {
 
   function updateTemperature(value) {
-	  console.log(value);
+    console.log(value);
   }
 
-
+  // house object
+  var house = {
+      
+  };
 
   // create rooms
   var rooms = [];
@@ -15,6 +18,7 @@ $(function() {
     temp: "",
     music: {on: false, source: "", volume: 0},
     light: {on: false, color: "", intensity: 0}
+    // possibly blinds
   };
 
   // create users
@@ -27,8 +31,9 @@ $(function() {
   var user = {
     id: 1,
     name: "",
-    priority: 0,
+    priority: 0, // 0 - 10
     status: "resident", // enum: {friend, unknown, resident, restricted}
+    location: "", // roomId, outside, or away
     posX: 0,
     posY: 0
   };
@@ -70,18 +75,21 @@ $(function() {
   // for pop-up
   function popUp(roomId){
 
-	  	  // get current room color
-		  console.log("Room: " + roomId);
-	  var roomColor = $("#" + roomId).backgroundColor;
-	  console.log("Room color: " + roomColor);
+    // get & set current room color
+    var roomColor = $("#" + roomId).css('backgroundColor');
+    $("#light-color").val(roomColor);
+
+    // get current temperature
+    var currTemp = $("#" + roomId + " > .temp-display").val();
+    $("#temp-slider").val(currTemp);
 
     var winW = window.innerWidth;
     var winH = window.innerHeight;
     var dialogoverlay = document.getElementById('dialogoverlay');
     var dialogbox = document.getElementById('dialogbox');
     dialogoverlay.style.display = "block";
-    dialogoverlay.style.height = winH+"px";
-    dialogbox.style.left = (winW/2) - (550 * 0.5) + "px";
+    dialogoverlay.style.height = winH + "px";
+    dialogbox.style.left = (winW / 2) - (550 * 0.5) + "px";
     dialogbox.style.top = "100px";
     dialogbox.style.display = "block";
     document.getElementById('dialogboxhead').innerHTML = roomId;
@@ -94,7 +102,6 @@ $(function() {
       document.getElementById('dialogoverlay').style.display = "none";
 
       // check mode
-
       console.log($("#mode"));
       console.log($("#mode").val());
 
@@ -102,7 +109,6 @@ $(function() {
       console.log($("#light-color").val());
 
       if ($("#light-color").val() != "#000000") { // if light color is not black
-        console.log("light is not black");
         $("#" + roomId).css("background-color", $("#light-color").val());
 
         // reset color of color picker
@@ -112,6 +118,9 @@ $(function() {
       }
 
       // check temperature
+      if ($("#temp-slider").val() !== "") {
+        $("#" + roomId + " > .temp-display").html("<p class=temp-display>" + $("#temp-slider").val() + "&deg;</p>");
+      }
 
     };
 

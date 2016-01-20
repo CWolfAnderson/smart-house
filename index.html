@@ -47,10 +47,11 @@
     <img src="img/stick-figure.png" width="40" height="90" class="draggable user" id="home-owner2">
 
     <div class="picture">
-      <div id="bedroom1" class="room"><p>Bedroom 1</p></div>
-      <div id="hallway" class="room"><p>Hallway</p></div>
-      <div id="bedroom2" class="room"><p>Bedroom 2</p></div>
-      <div id="livingroom" class="room"><p>Living Room</p></div>
+      <div id="bedroom1" class="room"><p>Bedroom 1</p><p class="temp-display"></p></div>
+      <div id="hallway" class="room"><p>Hallway</p><p class="temp-display"></p></div>
+      <div id="bedroom2" class="room"><p>Bedroom 2</p><p class="temp-display"></p></div>
+      <div id="livingroom" class="room"><p>Living Room</p><p class="temp-display"></p></div>
+      <div id="kitchen" class="room"><p>Kitchen</p><p class="temp-display"></p></div>
     </div>
 
     <!-- for pop-up -->
@@ -78,7 +79,7 @@
               <input type='color' id='light-color'>
             </p>
             <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
-              <input id='tempSlider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
+              <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
             </p>
           </div>
 

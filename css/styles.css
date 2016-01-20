@@ -44,8 +44,21 @@
 #livingroom {
   top: 300px;
   left: 0;
+  width: 450px;
+  height: 300px;
+}
+
+#kitchen {
+  top: 300px;
+  left: 450px;
   width: 300px;
   height: 300px;
+}
+
+.temp-display {
+  position: absolute;
+  bottom: -5px;
+  right: 5px;
 }
 
 #tempSlider {
