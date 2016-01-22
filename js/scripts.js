@@ -6,7 +6,7 @@ $(function() {
 
   // house object
   var house = {
-      
+
   };
 
   // create rooms
@@ -40,7 +40,12 @@ $(function() {
 
 
   // allows users to be dragged
-  $(".draggable").draggable();
+  // $(".draggable").draggable();
+
+  angular.element(document).ready(function () { //Everything in here runs when Angular says DOM is ready
+    $(".draggable").draggable();
+
+  });
 
   $(".room").droppable({
 

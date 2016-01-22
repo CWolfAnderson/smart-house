@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="addUser">
+<head>
+
+  <link rel="shortcut icon" type="image/png" href="../img/house.png"/>
+  <meta charset="utf-8">
+  <title>J.O.S.E.</title>
+
+  <!-- Bootstrap latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../css/styles.css">
+
+  <!-- Google Font Ubuntu -->
+  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <!-- include angularjs -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+  <!-- include firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+
+  <!-- include angularfire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
+
+  <script src="../js/add_user.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <div ng-controller="userController">
+
+      <div class="jumbotron">
+
+        <h1>Judicious Online Super Edifice</h1>
+        <h3>Add User</h3>
+
+        <p><a href="../index.html" class="btn btn-info btn-sm">Home</a></p>
+        <p>Name: <input type="text" ng-model="name" placeholder="name"></p>
+        <p>Priority: <input type="text" ng-model="priority" placeholder="0-5"></p>
+        <p>Status: <input type="text" ng-model="status" placeholder="resident, unknown, friend, restricted"></p>
+        <p><div class="btn btn-success btn-sm" ng-click="addUser(name, priority, status)">Submit</div></p>
+
+<!--
+name: "",
+priority: 0, // 0 - 10
+status: "resident", // enum: {friend, unknown, resident, restricted}
+location: "", // roomId, outside, or away
+posX: 0,
+posY: 0
+ -->
+
+      </div>
+
+      <ol>
+        <li ng-repeat="user in house.users" class="center">
+          <p><strong>Name:</strong> {{user.name}}</p>
+          <p><strong>Priority:</strong> {{user.priority}}</p>
+          <p><strong>Status:</strong> {{user.status}}</p>
+          <p><strong>Location:</strong> {{user.location}}</p>
+          <p><strong>Position:</strong> ({{user.posX}}, {{user.posY}})</p>
+        </li>
+      </ol>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
