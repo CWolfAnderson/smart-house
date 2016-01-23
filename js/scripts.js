@@ -38,15 +38,6 @@ $(function() {
     posY: 0
   };
 
-
-  // allows users to be dragged
-  // $(".draggable").draggable();
-
-  angular.element(document).ready(function () { //Everything in here runs when Angular says DOM is ready
-    $(".draggable").draggable();
-
-  });
-
   $(".room").droppable({
 
     drop: function(event, ui) {

@@ -13,6 +13,9 @@ function ($scope, $firebaseObject) {
 
   // $scope.users = $scope.house.users;
 
+  $scope.house.$loaded().then(function() {
+	setTimeout(function(){ console.log($(".draggable")); $(".draggable").draggable(); }, 0);
+  });
   }
 ]);
 
