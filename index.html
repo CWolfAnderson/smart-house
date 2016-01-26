@@ -59,8 +59,14 @@
       <a href="pages/users.html" class="btn btn-info" role="button">Users</a>
       <a href="pages/add_user.html" class="btn btn-info" role="button">Add User</a>
     </p>
-    <img ng-src="img/stick-figure.png" width="40" height="90" class="draggable user" id="{{user.name}}" ng-repeat="user in house.users" />
-	
+
+    <!-- <img ng-src="img/stick-figure.png" width="40" height="90" class="draggable user" id="{{user.name}}" ng-repeat="user in house.users" /> -->
+
+    <div style="width:image width px; font-size:80%; text-align:center;" ng-repeat="user in house.users" class="draggable user user-div">
+      <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
+      <p class="user-name">{{user.name}}</p>
+    </div>
+
 
     <div class="picture">
       <div id="bedroom1" class="room"><p>Bedroom 1</p><p class="temp-display"></p></div>

@@ -11,6 +11,22 @@
 
 .user {
   z-index: 1;
+  margin: 5px;
+}
+
+.user-div {
+  height: 90px;
+  width: 40px;
+  display: inline-block;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.user-name {
+  position: absolute;
+  bottom: -95px;
+  width: 40px;
+  height: 90px;
 }
 
 .room {
@@ -68,22 +84,22 @@
 /* for pop-up */
 
 #dialogoverlay{
-	display: none;
-	opacity: .3;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	background: #FFF;
-	width: 100%;
-	z-index: 10;
+  display: none;
+  opacity: .3;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background: #FFF;
+  width: 100%;
+  z-index: 10;
 }
 #dialogbox{
-	display: none;
-	position: fixed;
-	background: #000;
-	border-radius:7px;
-	width:550px;
-	z-index: 10;
+  display: none;
+  position: fixed;
+  background: #000;
+  border-radius:7px;
+  width:550px;
+  z-index: 10;
 }
 #dialogbox > div{ background:#FFF; margin:8px; }
 #dialogbox > div > #dialogboxhead{ background: #666; font-size:19px; padding:10px; color:#CCC; }
