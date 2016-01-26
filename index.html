@@ -62,55 +62,68 @@
 
     <!-- <img ng-src="img/stick-figure.png" width="40" height="90" class="draggable user" id="{{user.name}}" ng-repeat="user in house.users" /> -->
 
-    <div style="width:image width px; font-size:80%; text-align:center;" ng-repeat="user in house.users" class="draggable user user-div">
-      <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
-      <p class="user-name">{{user.name}}</p>
-    </div>
+    <!-- <div style="width:image width px; font-size:80%; text-align:center;" ng-repeat="user in house.users" class="draggable user user-div"   rel="popover"
+    data-content="This is the body of Popover"
+    data-original-title="Creativity Tuts">
+    <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
+    <p class="user-name">{{user.name}}</p>
+  </div> -->
+  <div ng-repeat="user in house.users" class="draggable user user-div"
+  data-toggle="popover" title="{{user.name}}
+  Priority: {{user.priority}}
+  Status: {{user.status}}
+  Location: {{user.location}}" data-content="There should be more shiz in here!" data-trigger="hover">
 
+  <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
+  <p class="user-name">{{user.name}}</p>
 
-    <div class="picture">
-      <div id="bedroom1" class="room"><p>Bedroom 1</p><p class="temp-display"></p></div>
-      <div id="hallway" class="room"><p>Hallway</p><p class="temp-display"></p></div>
-      <div id="bedroom2" class="room"><p>Bedroom 2</p><p class="temp-display"></p></div>
-      <div id="livingroom" class="room"><p>Living Room</p><p class="temp-display"></p></div>
-      <div id="kitchen" class="room"><p>Kitchen</p><p class="temp-display"></p></div>
-    </div>
+</div>
 
-    <!-- for pop-up -->
-    <div id="dialogoverlay"></div>
-    <div id="dialogbox">
-      <div>
-        <div id="dialogboxhead"></div>
-        <div id="dialogboxbody">
-          <div class='panel panel-info'>
-            <p>Mode:
-              <select name='mode' id='mode'>
-                <option value=''>-</option>
-                <option value='party'>party</option>
-                <option value='lock-down'>lock down</option>
-                <option value='study'>study</option>
-              </select>
-            </p>
-            <p>Light:
-              <select name='light' id='light'>
-                <option value=''>-</option>
-                <option value='low'>low</option>
-                <option value='medium'>medium</option>
-                <option value='high'>high</option>
-              </select>
-              <input type='color' id='light-color'>
-            </p>
-            <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
-              <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
-            </p>
-          </div>
+<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover">Click to toggle popover</button>
 
-        </div>
-        <div id="dialogboxfoot"></div>
+<div class="picture">
+  <div id="bedroom1" class="room"><p>Bedroom 1</p><p class="temp-display"></p></div>
+  <div id="hallway" class="room"><p>Hallway</p><p class="temp-display"></p></div>
+  <div id="bedroom2" class="room"><p>Bedroom 2</p><p class="temp-display"></p></div>
+  <div id="livingroom" class="room"><p>Living Room</p><p class="temp-display"></p></div>
+  <div id="kitchen" class="room"><p>Kitchen</p><p class="temp-display"></p></div>
+</div>
+
+<!-- for pop-up -->
+<div id="dialogoverlay"></div>
+<div id="dialogbox">
+  <div>
+    <div id="dialogboxhead"></div>
+    <div id="dialogboxbody">
+      <div class='panel panel-info'>
+        <p>Mode:
+          <select name='mode' id='mode'>
+            <option value=''>-</option>
+            <option value='party'>party</option>
+            <option value='lock-down'>lock down</option>
+            <option value='study'>study</option>
+          </select>
+        </p>
+        <p>Light:
+          <select name='light' id='light'>
+            <option value=''>-</option>
+            <option value='low'>low</option>
+            <option value='medium'>medium</option>
+            <option value='high'>high</option>
+          </select>
+          <input type='color' id='light-color'>
+        </p>
+        <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
+          <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
+        </p>
       </div>
-    </div>
 
+    </div>
+    <div id="dialogboxfoot"></div>
   </div>
+</div>
+
+</div>
 
 </body>
 </html>
