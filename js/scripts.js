@@ -39,9 +39,7 @@ $(function() {
   };
 
   // allow popover
-  $('[data-toggle="popover"]').popover();
-  
-  $('.user-div').popover({html: true, trigger: "hover"});
+  $('[data-toggle="popover"]').popover({html: true});
 
   $(".room").droppable({
 
