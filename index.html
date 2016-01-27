@@ -69,17 +69,21 @@
     <p class="user-name">{{user.name}}</p>
   </div> -->
   <div ng-repeat="user in house.users" class="draggable user user-div"
-  data-toggle="popover" title="{{user.name}}
-  Priority: {{user.priority}}
-  Status: {{user.status}}
-  Location: {{user.location}}" data-content="There should be more shiz in here!" data-trigger="hover" data-placement="right">
-
+  data-toggle="popover" 
+  data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}" 
+  title="{{user.name}}" 
+  data-trigger="hover" 
+  data-placement="right">
   <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
   <p class="user-name">{{user.name}}</p>
 
 </div>
 
-<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover" data-placement="right">Click to toggle popover</button>
+<button type="button" class="btn btn-lg btn-danger" 
+data-toggle="popover" title="Popover title" 
+data-content="And here's some amazing content. It's very engaging. Right?" 
+data-trigger="hover" 
+data-placement="right">Click to toggle popover</button>
 
 <div class="picture">
   <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}"><p>{{room.name}}</p><p class="temp-display">{{room.temp}}</p></div>

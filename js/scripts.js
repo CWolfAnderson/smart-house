@@ -5,7 +5,7 @@ $(function() {
   }
 
   // allow popover
-  $('[data-toggle="popover"]').popover({html: true});
+  
 
   $(".room").droppable({
 
