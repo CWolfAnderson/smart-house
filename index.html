@@ -9,6 +9,9 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <!-- speech recognition styles -->
+  <link rel="stylesheet" href="css/speech_recognition.css">
+
   <!-- custom stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 
@@ -36,6 +39,9 @@
 
   <!-- Bootstrap JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+  <!-- speech recognition -->
+  <script src="js/speech_recognition.js"></script>
 
   <!-- custom js -->
   <script src="js/scripts.js"></script>
@@ -69,21 +75,34 @@
     <p class="user-name">{{user.name}}</p>
   </div> -->
   <div ng-repeat="user in house.users" class="draggable user user-div"
-  data-toggle="popover" 
-  data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}" 
-  title="{{user.name}}" 
-  data-trigger="hover" 
+  data-toggle="popover"
+  data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}"
+  title="{{user.name}}"
+  data-trigger="hover"
   data-placement="right">
   <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
   <p class="user-name">{{user.name}}</p>
 
 </div>
 
-<button type="button" class="btn btn-lg btn-danger" 
-data-toggle="popover" title="Popover title" 
-data-content="And here's some amazing content. It's very engaging. Right?" 
-data-trigger="hover" 
-data-placement="right">Click to toggle popover</button>
+<br> <br>
+
+<div class="container">
+    <div id="message" class="message">Click "Talk" and begin speaking.</div>
+    <div class="todo"> <span id="final_span" class="final"></span>
+ <span id="interim_span" class="interim"></span>
+
+    </div>
+    <div class="controls">
+        <button id="talk_button" class="button" onclick="talkWithApp(event)">Talk</button>
+        <select id="language" class="select">
+            <option value="en-GB">English</option>
+            <option value="it-IT">Italian</option>
+        </select>
+    </div>
+</div>
+
+<br> <br>
 
 <div class="picture">
   <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
@@ -129,6 +148,8 @@ data-placement="right">Click to toggle popover</button>
 </div>
 
 </div>
+
+<p>I want this to display under the house!</p>
 
 </body>
 </html>
