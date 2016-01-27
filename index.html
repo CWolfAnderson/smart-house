@@ -82,7 +82,12 @@
 <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?" data-trigger="hover" data-placement="right">Click to toggle popover</button>
 
 <div class="picture">
-  <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}"><p>{{room.name}}</p><p class="temp-display">{{room.temp}}</p></div>
+  <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
+    <p><strong>{{room.name}}</strong></p>
+    <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
+    <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
+    <p class="temp-display" ng-if=room.temp>{{room.temp}}&deg;</p>
+  </div>
 </div>
 
 <!-- for pop-up -->
