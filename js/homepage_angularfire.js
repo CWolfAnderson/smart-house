@@ -14,7 +14,13 @@ console.clear();
     // $scope.users = $scope.house.users;
 
     $scope.house.$loaded().then(function() {
-      setTimeout(function(){ $('[data-toggle="popover"]').popover({html: true}); $(".draggable").draggable(); }, 0);
+      setTimeout(function(){ 
+		$('[data-toggle="popover"]').popover({html: true}); 
+		$(".draggable").draggable({
+			stop: function(event, ui) {
+			}
+		}); 
+	  }, 0);
     });
 
     $scope.roomClick = function(roomId) {
