@@ -77,6 +77,18 @@
   right: 5px;
 }
 
+.music-display {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.mode-display {
+  position: absolute;
+  left: 5px;
+  bottom: -5px;
+}
+
 #tempSlider {
   width: 250px;
 }
