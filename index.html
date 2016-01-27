@@ -74,18 +74,16 @@
     <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
     <p class="user-name">{{user.name}}</p>
   </div> -->
-<<<<<<< HEAD
+
   <div ng-repeat="(guid, user) in house.users" id="{{guid}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}<br/>posX: {{user.posX}}<br/>posY: {{user.posY}}" title="{{user.name}}" data-trigger="hover" data-placement="right" >
   <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;"/>
-=======
-  <div ng-repeat="user in house.users" class="draggable user user-div"
+  <!-- <div ng-repeat="user in house.users" class="draggable user user-div"
   data-toggle="popover"
   data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}"
   title="{{user.name}}"
   data-trigger="hover"
   data-placement="right">
-  <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
->>>>>>> voice_recognition
+  <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/> -->
   <p class="user-name">{{user.name}}</p>
 
 </div>
