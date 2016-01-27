@@ -4,11 +4,6 @@ $(function() {
     console.log(value);
   }
 
-  // house object
-  var house = {
-
-  };
-
   // create rooms
   var rooms = [];
 
@@ -65,7 +60,7 @@ $(function() {
       occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
       event.target.setAttribute("occupants", occupants);
       // check if there is still an occupant
-      if($.trim( occupants ) === '') {
+      if($.trim(occupants) === '') {
         event.target.style.backgroundColor = "white";
       }
 
