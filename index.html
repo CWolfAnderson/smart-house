@@ -40,9 +40,6 @@
   <!-- Bootstrap JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-  <!-- speech recognition -->
-  <script src="js/speech_recognition.js"></script>
-
   <!-- custom js -->
   <script src="js/scripts.js"></script>
 
@@ -52,12 +49,17 @@
   }
   </script>
 
+  <!-- speech recognition -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
+  <script src="js/speech-recognition.js"></script>
+
 </head>
 <body>
 
   <div class="container" ng-controller="houseController">
-
+    
     <h1>Judicious Online Super Edifice</h1>
+    <button id="speech">Click for speech.</button>
 
     <!-- button to control the entire house -->
     <p>
@@ -88,31 +90,12 @@
 
 </div>
 
-<br> <br>
-
-<div class="container">
-  <div id="message" class="message">Click "Talk" and begin speaking.</div>
-  <div class="todo"> <span id="final_span" class="final"></span>
-    <span id="interim_span" class="interim"></span>
-
-  </div>
-  <div class="controls">
-    <button id="talk_button" class="button" onclick="talkWithApp(event)">Talk</button>
-    <select id="language" class="select">
-      <option value="en-GB">English</option>
-      <option value="it-IT">Italian</option>
-    </select>
-  </div>
-</div>
-
-<br> <br>
-
 <div class="picture">
   <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
     <p><strong>{{room.name}}</strong></p>
     <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
     <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
-    <p class="temp-display" ng-if=room.temp>{{room.temp}}&deg;</p>
+    <p class="temp-display" ng-if="room.temp">{{room.temp}}&deg;</p>
   </div>
 </div>
 
@@ -150,9 +133,9 @@
   </div>
 </div>
 
-</div>
+<p>Inside container</p>
 
-<p>I want this to display under the house!</p>
+</div>
 
 </body>
 </html>
