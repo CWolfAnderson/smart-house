@@ -44,22 +44,22 @@
   <script src="js/scripts.js"></script>
 
   <script type="text/javascript">
-  function updateTemperature(val) {
-    document.getElementById('temperature').textContent = val;
-  }
+  // DON'T DELETE THIS! (I moved it to homepage_angularfire.js but I haven't run it yet)
+  
+  // function updateTemperature(val) {
+  //   document.getElementById('temperature').textContent = val;
+  // }
   </script>
 
   <!-- speech recognition -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
-  <script src="js/speech-recognition.js"></script>
 
 </head>
 <body>
 
   <div class="container" ng-controller="houseController">
-    
+
     <h1>Judicious Online Super Edifice</h1>
-    <button id="speech">Click for speech.</button>
 
     <!-- button to control the entire house -->
     <p>
@@ -68,24 +68,9 @@
       <a href="pages/add_user.html" class="btn btn-info" role="button">Add User</a>
     </p>
 
-    <!-- <img ng-src="img/stick-figure.png" width="40" height="90" class="draggable user" id="{{user.name}}" ng-repeat="user in house.users" /> -->
-
-    <!-- <div style="width:image width px; font-size:80%; text-align:center;" ng-repeat="user in house.users" class="draggable user user-div"   rel="popover"
-    data-content="This is the body of Popover"
-    data-original-title="Creativity Tuts">
-    <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/>
-    <p class="user-name">{{user.name}}</p>
-  </div> -->
-
   <div ng-repeat="(guid, user) in house.users" id="{{guid}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}<br/>posX: {{user.posX}}<br/>posY: {{user.posY}}" title="{{user.name}}" data-trigger="hover" data-placement="right" >
   <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;"/>
-  <!-- <div ng-repeat="user in house.users" class="draggable user user-div"
-  data-toggle="popover"
-  data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}"
-  title="{{user.name}}"
-  data-trigger="hover"
-  data-placement="right">
-  <img ng-src="img/stick-figure.png" width="40" height="90" id="{{user.name}}" style="padding-bottom: 0.5em;"/> -->
+
   <p class="user-name">{{user.name}}</p>
 
 </div>
