@@ -1,4 +1,5 @@
 console.clear();
+var usertalking = '';
 (function(){
 
   var app = angular.module('smartHouse', ['firebase']);
@@ -68,30 +69,43 @@ console.clear();
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
 
-            "hey (ho) (Jose) (José) turn on all the lights": function() {
-              alert("Turning on all the lights...");
-              console.log("Turning on lights...");
+            "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
+              alert(usertalking);
+              if (onOrOff === "on") {
+                alert("Turning on all the lights.");
+              } else if (onOrOff === "off") {
+                alert("Turning off all the lights.");
+              }
             },
 
-            "hey (ho) (Jose) (José) set the temperature to :deg degrees": function(deg) {
+            "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
+              alert(usertalking);
               alert("Setting the temperature to " + deg + " degrees.");
             },
 
-            "hey (ho) (Jose) (José) turn on (the) :room (light) (lights)": function(roomName) {
-              alert("Turning on the " + roomName + " lights.");
+            "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
+              alert(usertalking);
+              if (onOrOff === "on") {
+                alert("Turning on the lights in the " + room);
+              } else if (onOrOff === "off") {
+                alert("Turning off the lights.");
+              }
             },
 
             "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
+              alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
 
             "hey (ho) (Jose) (José) turn on the lights": function() {
               // TODO: track what room the use is in and turn the lights on
+              alert(usertalking);
               alert("Turning on the lights in your room.");
             },
 
             // special case for living room
             "hey (ho) (Jose) (José) turn on (the) living room lights": function() {
+              alert(usertalking);
               alert("Turning on the living room lights");
             }
 
@@ -104,9 +118,14 @@ console.clear();
           annyang.debug();
 
           $(".user").dblclick(function(){
-
+            console.log("-----------------");
+            console.log(this);
+            console.log("-----------------");
+            console.log("start name");
+            console.log($(this).attr("name"));
+            console.log("end name");
             console.log("Clicked on " + this.id);
-
+            usertalking = $(this).attr("name");
             console.log("Starting Annyang");
             annyang.start();
 
