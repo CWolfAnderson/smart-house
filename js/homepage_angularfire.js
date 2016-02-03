@@ -69,20 +69,27 @@ var usertalking = '';
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
 
-            "hey (ho) (Jose) (José) turn on all the lights": function() {
+            "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
               alert(usertalking);
-			  alert("Turning on all the lights...");
-              console.log("Turning on lights...");
+              if (onOrOff === "on") {
+                alert("Turning on all the lights.");
+              } else if (onOrOff === "off") {
+                alert("Turning off all the lights.");
+              }
             },
 
-            "hey (ho) (Jose) (José) set the temperature to :deg degrees": function(deg) {
+            "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
               alert(usertalking);
               alert("Setting the temperature to " + deg + " degrees.");
             },
 
-            "hey (ho) (Jose) (José) turn on (the) :room (light) (lights)": function(roomName) {
+            "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
               alert(usertalking);
-              alert("Turning on the " + roomName + " lights.");
+              if (onOrOff === "on") {
+                alert("Turning on the lights in the " + roomName);
+              } else if (onOrOff === "off") {
+                alert("Turning off the lights in the " + roomName);
+              }
             },
 
             "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
@@ -111,9 +118,14 @@ var usertalking = '';
           annyang.debug();
 
           $(".user").dblclick(function(){
-
+            console.log("-----------------");
+            console.log(this);
+            console.log("-----------------");
+            console.log("start name");
+            console.log($(this).attr("name"));
+            console.log("end name");
             console.log("Clicked on " + this.id);
-			usertalking = this.name;
+            usertalking = $(this).attr("name");
             console.log("Starting Annyang");
             annyang.start();
 
