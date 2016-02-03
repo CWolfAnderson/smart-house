@@ -78,9 +78,13 @@ var usertalking = '';
               }
             },
 
-            "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
+            "hey (ho) (Jose) (José) (set) (change) (the) (temp) (temperature) (to) :deg (degrees)": function(deg) {
               alert(usertalking);
-              alert("Setting the temperature to " + deg + " degrees.");
+              if (parseInt(deg) > 59 && parseInt(deg) < 101) {
+                alert("Setting the temperature to " + deg + " degrees.");
+              } else {
+                alert("Check your temperature range and try again.");
+              }
             },
 
             "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
@@ -118,13 +122,7 @@ var usertalking = '';
           annyang.debug();
 
           $(".user").dblclick(function(){
-            console.log("-----------------");
-            console.log(this);
-            console.log("-----------------");
-            console.log("start name");
-            console.log($(this).attr("name"));
-            console.log("end name");
-            console.log("Clicked on " + this.id);
+
             usertalking = $(this).attr("name");
             console.log("Starting Annyang");
             annyang.start();
