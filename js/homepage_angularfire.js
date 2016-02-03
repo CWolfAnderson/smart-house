@@ -49,7 +49,7 @@ console.clear();
 
             // How to use annyang commands
 
-            // annyang will capture anything after a splat (*) and pass it to the function.
+            // annyang will capture anything after a asterisk (*) and pass it to the function.
             // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
             // 'show me *tag': function(tag) {
             //   var url = 'http://api.flickr.com/services/rest/?tags=' + tag;
@@ -68,12 +68,12 @@ console.clear();
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
 
-            "hey (Jose) (José) turn on all the lights": function() {
+            "hey (ho) (Jose) (José) turn on all the lights": function() {
               alert("Turning on all the lights...");
               console.log("Turning on lights...");
             },
 
-            "hey (Jose) (José) set the temperature to :deg degrees": function(deg) {
+            "hey (ho) (Jose) (José) set the temperature to :deg degrees": function(deg) {
               alert("Setting the temperature to " + deg + " degrees.");
             },
 
