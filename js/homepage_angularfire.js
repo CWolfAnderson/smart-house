@@ -1,4 +1,5 @@
 console.clear();
+var usertalking = '';
 (function(){
 
   var app = angular.module('smartHouse', ['firebase']);
@@ -69,29 +70,35 @@ console.clear();
             // }
 
             "hey (ho) (Jose) (José) turn on all the lights": function() {
-              alert("Turning on all the lights...");
+              alert(usertalking);
+			  alert("Turning on all the lights...");
               console.log("Turning on lights...");
             },
 
             "hey (ho) (Jose) (José) set the temperature to :deg degrees": function(deg) {
+              alert(usertalking);
               alert("Setting the temperature to " + deg + " degrees.");
             },
 
             "hey (ho) (Jose) (José) turn on (the) :room (light) (lights)": function(roomName) {
+              alert(usertalking);
               alert("Turning on the " + roomName + " lights.");
             },
 
             "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
+              alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
 
             "hey (ho) (Jose) (José) turn on the lights": function() {
               // TODO: track what room the use is in and turn the lights on
+              alert(usertalking);
               alert("Turning on the lights in your room.");
             },
 
             // special case for living room
             "hey (ho) (Jose) (José) turn on (the) living room lights": function() {
+              alert(usertalking);
               alert("Turning on the living room lights");
             }
 
@@ -106,7 +113,7 @@ console.clear();
           $(".user").dblclick(function(){
 
             console.log("Clicked on " + this.id);
-
+			usertalking = this.name;
             console.log("Starting Annyang");
             annyang.start();
 
