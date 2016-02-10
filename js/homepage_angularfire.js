@@ -69,7 +69,7 @@ var usertalking = '';
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
 
-            "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
+            "turn :onOrOff all the lights": function(onOrOff) {
               alert(usertalking);
               if (onOrOff === "on") {
                 alert("Turning on all the lights.");
@@ -78,7 +78,7 @@ var usertalking = '';
               }
             },
 
-            "hey (ho) (Jose) (José) (set) (change) (the) (temp) (temperature) (to) :deg (degrees)": function(deg) {
+            "(set) (change) (the) temperature (to) :deg (degrees)": function(deg) {
               alert(usertalking);
               if (parseInt(deg) > 59 && parseInt(deg) < 101) {
                 alert("Setting the temperature to " + deg + " degrees.");
@@ -87,7 +87,15 @@ var usertalking = '';
               }
             },
 
-            "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
+            "(set) (change) (the) mode (to) :mode (mode)": function(mode) {
+              alert("Changing the mode to " + mode);
+            },
+
+            "(set) (change) (the) volume (to) :volume (mode)": function(volume) {
+
+            },
+
+            "turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
               alert(usertalking);
               if (onOrOff === "on") {
                 alert("Turning on the lights in the " + room);
@@ -96,7 +104,7 @@ var usertalking = '';
               }
             },
 
-            "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
+            "turn on the lights in (the) *room": function(room) {
               alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
@@ -108,7 +116,7 @@ var usertalking = '';
             },
 
             // special case for living room
-            "hey (ho) (Jose) (José) turn on (the) living room lights": function() {
+            "turn on (the) living room lights": function() {
               alert(usertalking);
               alert("Turning on the living room lights");
             }
