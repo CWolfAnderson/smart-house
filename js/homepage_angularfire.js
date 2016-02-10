@@ -1,9 +1,8 @@
 console.clear();
-var usertalking = '';
 (function(){
 
   var app = angular.module('smartHouse', ['firebase']);
-
+  
   app.controller('houseController', ['$scope', '$firebaseObject',
   function ($scope, $firebaseObject) {
 
@@ -42,7 +41,7 @@ var usertalking = '';
         });
 
         // speech recognition
-        if (annyang) {
+        if (annyang !== undefined) {
 
           console.log("Annyang activated.");
 
@@ -70,7 +69,6 @@ var usertalking = '';
             // }
 
             "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
-              alert(usertalking);
               if (onOrOff === "on") {
                 alert("Turning on all the lights.");
               } else if (onOrOff === "off") {
@@ -79,12 +77,10 @@ var usertalking = '';
             },
 
             "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
-              alert(usertalking);
               alert("Setting the temperature to " + deg + " degrees.");
             },
 
             "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
-              alert(usertalking);
               if (onOrOff === "on") {
                 alert("Turning on the lights in the " + roomName);
               } else if (onOrOff === "off") {
@@ -93,19 +89,16 @@ var usertalking = '';
             },
 
             "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
-              alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
 
             "hey (ho) (Jose) (José) turn on the lights": function() {
-              // TODO: track what room the use is in and turn the lights on
-              alert(usertalking);
+              // TODO: track what room the use is in and turn the lights
               alert("Turning on the lights in your room.");
             },
 
             // special case for living room
             "hey (ho) (Jose) (José) turn on (the) living room lights": function() {
-              alert(usertalking);
               alert("Turning on the living room lights");
             }
 
@@ -116,16 +109,58 @@ var usertalking = '';
 
           // To print what annyang hears
           annyang.debug();
+		  console.log($(".room"))
+		  $(".room").droppable({
 
+			drop: function(event, ui) {
+			  // $(this)
+			  // .addClass( "ui-state-highlight" );
+
+			  //change the occupants attribute to track who's in what place.
+			  if(event.target.getAttribute("occupants") !== null) {
+				event.target.setAttribute("occupants", event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id"));
+				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+				$scope.house.$save();
+			  }
+			  else {
+				event.target.setAttribute("occupants", $(ui.draggable)[0].getAttribute("id"));
+				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+				$scope.house.$save();
+			  }
+
+			  event.target.style.backgroundColor = "yellow";
+			},
+			out: function(event, ui) {
+			  //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
+			  var name = $(ui.draggable)[0].getAttribute("id");
+			  var index = event.target.getAttribute("occupants").indexOf(name);
+			  var occupants = event.target.getAttribute("occupants");
+			  occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
+			  event.target.setAttribute("occupants", occupants);
+			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.setAttribute("occupants");
+			  $scope.house.$save();
+			  // check if there is still an occupant
+			  if($.trim(occupants) === '') {
+				event.target.style.backgroundColor = "white";
+			  }
+
+			}
+
+		  });
+
+          function userLocation(id) {
+            $(".room").each(function(num, room) {
+				console.log(room);
+				if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
+					return room;
+				}
+			});
+          }
           $(".user").dblclick(function(){
-            console.log("-----------------");
-            console.log(this);
-            console.log("-----------------");
-            console.log("start name");
-            console.log($(this).attr("name"));
-            console.log("end name");
-            console.log("Clicked on " + this.id);
-            usertalking = $(this).attr("name");
+            localStorage.userTalking = $(this).attr("name");
+			localStorage.userRoom = userLocation(this.id);
+			console.log("LocalStorage is:"); 	
+			console.log(localStorage);
             console.log("Starting Annyang");
             annyang.start();
 
