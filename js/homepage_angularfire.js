@@ -110,20 +110,22 @@ console.clear();
           // To print what annyang hears
           annyang.debug();
 		  console.log($(".room"))
+          
 		  $(".room").droppable({
 
 			drop: function(event, ui) {
+                console.log("foo");
 			  // $(this)
 			  // .addClass( "ui-state-highlight" );
 
 			  //change the occupants attribute to track who's in what place.
 			  if(event.target.getAttribute("occupants") !== null) {
-				event.target.setAttribute("occupants", event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id"));
+				event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
 				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
 				$scope.house.$save();
 			  }
 			  else {
-				event.target.setAttribute("occupants", $(ui.draggable)[0].getAttribute("id"));
+				event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
 				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
 				$scope.house.$save();
 			  }
@@ -136,8 +138,8 @@ console.clear();
 			  var index = event.target.getAttribute("occupants").indexOf(name);
 			  var occupants = event.target.getAttribute("occupants");
 			  occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
-			  event.target.setAttribute("occupants", occupants);
-			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.setAttribute("occupants");
+			  event.target.setAttribute("occupants", $.trim(occupants));
+			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
 			  $scope.house.$save();
 			  // check if there is still an occupant
 			  if($.trim(occupants) === '') {
