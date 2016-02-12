@@ -30,6 +30,10 @@ body {
   width: 40px;
 }
 
+.users {
+  margin-left: 100px;
+}
+
 .room {
   position: absolute;
   padding: 10px;
@@ -40,36 +44,57 @@ body {
 #bedroom1 {
   top: 0;
   left: 0;
-  width: 300px;
+  width: 350px;
   height: 300px;
 }
 
 #hallway {
   top: 0;
-  left: 300px;
-  width: 150px;
+  left: 350px;
+  width: 200px;
   height: 300px;
 }
 
 #bedroom2 {
   top: 0;
-  left: 450px;
-  width:300px;
+  left: 500px;
+  width:350px;
   height: 300px;
 }
 
 #livingroom {
   top: 300px;
   left: 0;
-  width: 450px;
+  width: 500px;
   height: 300px;
 }
 
 #kitchen {
   top: 300px;
-  left: 450px;
-  width: 300px;
+  left: 500px;
+  width: 350px;
   height: 300px;
+}
+
+#bathroom1 {
+  top: 600px;
+  width: 200px;
+  height: 250px;
+  left: 0;
+}
+
+#theater {
+  top: 600px;
+  width: 450px;
+  height: 250px;
+  left: 150px;
+}
+
+#bathroom2 {
+  top: 600px;
+  width: 250px;
+  height: 250px;
+  left: 600px;
 }
 
 .temp-display {

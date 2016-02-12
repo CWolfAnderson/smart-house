@@ -1,4 +1,5 @@
 console.clear();
+var usertalking = '';
 (function(){
 
   var app = angular.module('smartHouse', ['firebase']);
@@ -68,7 +69,12 @@ console.clear();
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
 
+<<<<<<< HEAD
             "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
+=======
+            "turn :onOrOff all the lights": function(onOrOff) {
+              alert(usertalking);
+>>>>>>> command_mods
               if (onOrOff === "on") {
                 alert("Turning on all the lights.");
               } else if (onOrOff === "off") {
@@ -76,6 +82,7 @@ console.clear();
               }
             },
 
+<<<<<<< HEAD
             "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
               alert("Setting the temperature to " + deg + " degrees.");
             },
@@ -86,20 +93,64 @@ console.clear();
               } else if (onOrOff === "off") {
                 alert("Turning off the lights in the " + roomName);
               }
+=======
+            "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
+              alert(usertalking);
+              if (parseInt(deg) > 59 && parseInt(deg) < 101) {
+                alert("Setting the temperature to " + deg + " degrees.");
+              } else {
+                alert("Check your temperature range and try again.");
+              }
             },
 
-            "hey (ho) (Jose) (José) turn on the lights in (the) *room": function(room) {
+            "(set) (change) (make) (the) mode (to) :mode (mode)": function(mode) {
+              alert("Changing the mode to " + mode);
+>>>>>>> command_mods
+            },
+
+            "(set) (change) (make) (the) volume (to) :volume (mode)": function(volume) {
+              alert("Setting the volume to " + volume);
+            },
+
+            "turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
+              alert(usertalking);
+              if (onOrOff === "on") {
+                alert("Turning on the lights in the " + room);
+              } else if (onOrOff === "off") {
+                alert("Turning off the lights.");
+              }
+            },
+
+            "(set) (change) (make) (the) light color (to) *color": function(color) {
+              alert("Setting the light color to " + color);
+            },
+
+            "turn on the lights in (the) *room": function(room) {
+              alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
 
+<<<<<<< HEAD
             "hey (ho) (Jose) (José) turn on the lights": function() {
               // TODO: track what room the use is in and turn the lights
+=======
+            "turn on the lights": function() {
+              // TODO: track what room the use is in and turn the lights on
+              alert(usertalking);
+>>>>>>> command_mods
               alert("Turning on the lights in your room.");
             },
 
             // special case for living room
-            "hey (ho) (Jose) (José) turn on (the) living room lights": function() {
+            "turn on (the) living room lights": function() {
+              alert(usertalking);
               alert("Turning on the living room lights");
+            },
+
+            "play *artistOrSong": function(artistOrSong) {
+              if (artistOrSong === "Nickelback") {alert("How about no...");} else {
+                alert("Playing " + artistOrSong);
+              }
             }
 
           };
@@ -159,10 +210,15 @@ console.clear();
 			});
           }
           $(".user").dblclick(function(){
+<<<<<<< HEAD
             localStorage.userTalking = $(this).attr("name");
 			localStorage.userRoom = userLocation(this.id);
 			console.log("LocalStorage is:"); 	
 			console.log(localStorage);
+=======
+
+            usertalking = $(this).attr("name");
+>>>>>>> command_mods
             console.log("Starting Annyang");
             annyang.start();
 
