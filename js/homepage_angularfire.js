@@ -179,15 +179,6 @@ var usertalking = '';
 
         }
 
-        function userLocation(id) {
-          $(".room").each(function(num, room) {
-            console.log(room);
-            if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
-              return room;
-            }
-          });
-        }
-
       }, 0);
     });
 
@@ -209,6 +200,15 @@ var usertalking = '';
         annyang.abort();
       }, 6000);
     };
+
+    function userLocation(id) {
+      $(".room").each(function(num, room) {
+        console.log(room);
+        if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
+          return room;
+        }
+      });
+    }
 
     $scope.updateTemperature = function(val) {
       document.getElementById('temperature').textContent = val;
