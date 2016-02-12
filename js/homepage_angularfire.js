@@ -3,7 +3,7 @@ var usertalking = '';
 (function(){
 
   var app = angular.module('smartHouse', ['firebase']);
-  
+
   app.controller('houseController', ['$scope', '$firebaseObject',
   function ($scope, $firebaseObject) {
 
@@ -68,13 +68,8 @@ var usertalking = '';
             // 'hey (ho) (Jose) (José) say hello (to my little) friend': function() {
             //   console.log("Brrrrrappp brap brrrappp!");
             // }
-
-<<<<<<< HEAD
-            "hey (ho) (Jose) (José) turn :onOrOff all the lights": function(onOrOff) {
-=======
             "turn :onOrOff all the lights": function(onOrOff) {
               alert(usertalking);
->>>>>>> command_mods
               if (onOrOff === "on") {
                 alert("Turning on all the lights.");
               } else if (onOrOff === "off") {
@@ -82,18 +77,6 @@ var usertalking = '';
               }
             },
 
-<<<<<<< HEAD
-            "hey (ho) (Jose) (José) set the temperature to :deg (degrees)": function(deg) {
-              alert("Setting the temperature to " + deg + " degrees.");
-            },
-
-            "hey (ho) (Jose) (José) turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
-              if (onOrOff === "on") {
-                alert("Turning on the lights in the " + roomName);
-              } else if (onOrOff === "off") {
-                alert("Turning off the lights in the " + roomName);
-              }
-=======
             "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
               alert(usertalking);
               if (parseInt(deg) > 59 && parseInt(deg) < 101) {
@@ -105,7 +88,6 @@ var usertalking = '';
 
             "(set) (change) (make) (the) mode (to) :mode (mode)": function(mode) {
               alert("Changing the mode to " + mode);
->>>>>>> command_mods
             },
 
             "(set) (change) (make) (the) volume (to) :volume (mode)": function(volume) {
@@ -130,14 +112,9 @@ var usertalking = '';
               alert("Turning on the lights in the " + room);
             },
 
-<<<<<<< HEAD
-            "hey (ho) (Jose) (José) turn on the lights": function() {
-              // TODO: track what room the use is in and turn the lights
-=======
             "turn on the lights": function() {
               // TODO: track what room the use is in and turn the lights on
               alert(usertalking);
->>>>>>> command_mods
               alert("Turning on the lights in your room.");
             },
 
@@ -160,65 +137,64 @@ var usertalking = '';
 
           // To print what annyang hears
           annyang.debug();
-		  console.log($(".room"))
+          console.log($(".room"));
+
+          $(".room").droppable({
+
+            drop: function(event, ui) {
+              console.log("foo");
+              // $(this)
+              // .addClass( "ui-state-highlight" );
+
+              //change the occupants attribute to track who's in what place.
+              if(event.target.getAttribute("occupants") !== null) {
+                event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
+                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+                $scope.house.$save();
+              }
+              else {
+                event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
+                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+                $scope.house.$save();
+              }
+
+              event.target.style.backgroundColor = "yellow";
+            },
+            out: function(event, ui) {
+              //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
+              var name = $(ui.draggable)[0].getAttribute("id");
+              var index = event.target.getAttribute("occupants").indexOf(name);
+              var occupants = event.target.getAttribute("occupants");
+              occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
+              event.target.setAttribute("occupants", $.trim(occupants));
+              $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+              $scope.house.$save();
+              // check if there is still an occupant
+              if($.trim(occupants) === '') {
+                event.target.style.backgroundColor = "white";
+              }
+
+            }
+
+          });
+
+        }
+
+        function userLocation(id) {
+          $(".room").each(function(num, room) {
+            console.log(room);
+            if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
+              return room;
+            }
+          });
           
-		  $(".room").droppable({
-
-			drop: function(event, ui) {
-                console.log("foo");
-			  // $(this)
-			  // .addClass( "ui-state-highlight" );
-
-			  //change the occupants attribute to track who's in what place.
-			  if(event.target.getAttribute("occupants") !== null) {
-				event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
-				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-				$scope.house.$save();
-			  }
-			  else {
-				event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
-				$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-				$scope.house.$save();
-			  }
-
-			  event.target.style.backgroundColor = "yellow";
-			},
-			out: function(event, ui) {
-			  //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
-			  var name = $(ui.draggable)[0].getAttribute("id");
-			  var index = event.target.getAttribute("occupants").indexOf(name);
-			  var occupants = event.target.getAttribute("occupants");
-			  occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
-			  event.target.setAttribute("occupants", $.trim(occupants));
-			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-			  $scope.house.$save();
-			  // check if there is still an occupant
-			  if($.trim(occupants) === '') {
-				event.target.style.backgroundColor = "white";
-			  }
-
-			}
-
-		  });
-
-          function userLocation(id) {
-            $(".room").each(function(num, room) {
-				console.log(room);
-				if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
-					return room;
-				}
-			});
-          }
           $(".user").dblclick(function(){
-<<<<<<< HEAD
-            localStorage.userTalking = $(this).attr("name");
-			localStorage.userRoom = userLocation(this.id);
-			console.log("LocalStorage is:"); 	
-			console.log(localStorage);
-=======
 
-            usertalking = $(this).attr("name");
->>>>>>> command_mods
+            localStorage.userTalking = $(this).attr("name");
+            localStorage.userRoom = userLocation(this.id);
+            console.log("LocalStorage is:");
+            console.log(localStorage);
+
             console.log("Starting Annyang");
             annyang.start();
 
@@ -226,6 +202,7 @@ var usertalking = '';
               console.log("Pausing annyang");
               annyang.abort();
             }, 6000);
+
 
           });
 
