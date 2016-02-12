@@ -147,7 +147,7 @@ var usertalking = '';
               // .addClass( "ui-state-highlight" );
 
               //change the occupants attribute to track who's in what place.
-              if(event.target.getAttribute("occupants") !== null) {
+              if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
                 event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
                 $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
                 $scope.house.$save();
