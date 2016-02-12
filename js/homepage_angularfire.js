@@ -78,7 +78,7 @@ var usertalking = '';
               }
             },
 
-            "(set) (change) (the) temperature (to) :deg (degrees)": function(deg) {
+            "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
               alert(usertalking);
               if (parseInt(deg) > 59 && parseInt(deg) < 101) {
                 alert("Setting the temperature to " + deg + " degrees.");
@@ -87,12 +87,12 @@ var usertalking = '';
               }
             },
 
-            "(set) (change) (the) mode (to) :mode (mode)": function(mode) {
+            "(set) (change) (make) (the) mode (to) :mode (mode)": function(mode) {
               alert("Changing the mode to " + mode);
             },
 
-            "(set) (change) (the) volume (to) :volume (mode)": function(volume) {
-
+            "(set) (change) (make) (the) volume (to) :volume (mode)": function(volume) {
+              alert("Setting the volume to " + volume);
             },
 
             "turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
@@ -104,12 +104,16 @@ var usertalking = '';
               }
             },
 
+            "(set) (change) (make) (the) light color (to) *color": function(color) {
+              alert("Setting the light color to " + color);
+            },
+
             "turn on the lights in (the) *room": function(room) {
               alert(usertalking);
               alert("Turning on the lights in the " + room);
             },
 
-            "hey (ho) (Jose) (José) turn on the lights": function() {
+            "turn on the lights": function() {
               // TODO: track what room the use is in and turn the lights on
               alert(usertalking);
               alert("Turning on the lights in your room.");
@@ -119,6 +123,12 @@ var usertalking = '';
             "turn on (the) living room lights": function() {
               alert(usertalking);
               alert("Turning on the living room lights");
+            },
+
+            "play *artistOrSong": function(artistOrSong) {
+              if (artistOrSong === "Nickelback") {alert("How about no...");} else {
+                alert("Playing " + artistOrSong);
+              }
             }
 
           };

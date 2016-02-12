@@ -45,7 +45,7 @@
 
   <script type="text/javascript">
   // DON'T DELETE THIS! (I moved it to homepage_angularfire.js but I haven't run it yet)
-  
+
   // function updateTemperature(val) {
   //   document.getElementById('temperature').textContent = val;
   // }
@@ -68,57 +68,57 @@
       <a href="pages/add_user.html" class="btn btn-info" role="button">Add User</a>
     </p>
 
-  <div ng-repeat="(guid, user) in house.users" id="{{guid}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}<br/>posX: {{user.posX}}<br/>posY: {{user.posY}}" title="{{user.name}}" data-trigger="hover" data-placement="right" >
-  <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;"/>
+    <div ng-repeat="(guid, user) in house.users" id="{{guid}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}" title="{{user.name}}" data-trigger="hover" data-placement="right" >
+    <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;"/>
 
-  <p class="user-name">{{user.name}}</p>
+    <p class="user-name">{{user.name}}</p>
 
-</div>
-
-<div class="picture">
-  <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
-    <p><strong>{{room.name}}</strong></p>
-    <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
-    <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
-    <p class="temp-display" ng-if="room.temp">{{room.temp}}&deg;</p>
   </div>
-</div>
-
-<!-- for pop-up -->
-<div id="dialogoverlay"></div>
-<div id="dialogbox">
-  <div>
-    <div id="dialogboxhead"></div>
-    <div id="dialogboxbody">
-      <div class='panel panel-info'>
-        <p>Mode:
-          <select name='mode' id='mode'>
-            <option value=''>-</option>
-            <option value='party'>party</option>
-            <option value='lock-down'>lock down</option>
-            <option value='study'>study</option>
-          </select>
-        </p>
-        <p>Light:
-          <select name='light' id='light'>
-            <option value=''>-</option>
-            <option value='low'>low</option>
-            <option value='medium'>medium</option>
-            <option value='high'>high</option>
-          </select>
-          <input type='color' id='light-color'>
-        </p>
-        <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
-          <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
-        </p>
-      </div>
-
+  
+  <div class="picture">
+    <div ng-repeat="room in house.rooms" id="{{room.id}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
+      <p><strong>{{room.name}}</strong></p>
+      <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
+      <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
+      <p class="temp-display" ng-if="room.temp">{{room.temp}}&deg;</p>
     </div>
-    <div id="dialogboxfoot"></div>
   </div>
-</div>
 
-<p>Inside container</p>
+  <!-- for pop-up -->
+  <div id="dialogoverlay"></div>
+  <div id="dialogbox">
+    <div>
+      <div id="dialogboxhead"></div>
+      <div id="dialogboxbody">
+        <div class='panel panel-info'>
+          <p>Mode:
+            <select name='mode' id='mode'>
+              <option value=''>-</option>
+              <option value='party'>party</option>
+              <option value='lock-down'>lock down</option>
+              <option value='study'>study</option>
+            </select>
+          </p>
+          <p>Light:
+            <select name='light' id='light'>
+              <option value=''>-</option>
+              <option value='low'>low</option>
+              <option value='medium'>medium</option>
+              <option value='high'>high</option>
+            </select>
+            <input type='color' id='light-color'>
+          </p>
+          <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
+            <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
+          </p>
+        </div>
+
+      </div>
+      <div id="dialogboxfoot"></div>
+    </div>
+  </div>
+
+  <p>Inside container</p>
 
 </div>
 
