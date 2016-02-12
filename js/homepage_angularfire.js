@@ -8,7 +8,6 @@ var usertalking = '';
   function ($scope, $firebaseObject) {
 
     var ref = new Firebase('https://smart-house.firebaseio.com/');
-    //var usersRef = new Firebase('https://smart-house.firebaseio.com/users/');
 
     // download users to local object
     $scope.ref = ref;
@@ -147,7 +146,7 @@ var usertalking = '';
               // .addClass( "ui-state-highlight" );
 
               //change the occupants attribute to track who's in what place.
-              if(event.target.getAttribute("occupants") !== null) {
+              if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
                 event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
                 $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
                 $scope.house.$save();
@@ -187,25 +186,6 @@ var usertalking = '';
               return room;
             }
           });
-          
-          $(".user").dblclick(function(){
-
-            localStorage.userTalking = $(this).attr("name");
-            localStorage.userRoom = userLocation(this.id);
-            console.log("LocalStorage is:");
-            console.log(localStorage);
-
-            console.log("Starting Annyang");
-            annyang.start();
-
-            setTimeout(function() {
-              console.log("Pausing annyang");
-              annyang.abort();
-            }, 6000);
-
-
-          });
-
         }
 
       }, 0);
@@ -213,6 +193,21 @@ var usertalking = '';
 
     $scope.roomClick = function(roomId) {
       console.log("room: " + roomId);
+    };
+
+    $scope.userClick = function() {
+      localStorage.userTalking = $(this).attr("name");
+      localStorage.userRoom = userLocation(this.id);
+      console.log("LocalStorage is:");
+      console.log(localStorage);
+
+      console.log("Starting Annyang");
+      annyang.start();
+
+      setTimeout(function() {
+        console.log("Pausing annyang");
+        annyang.abort();
+      }, 6000);
     };
 
     $scope.updateTemperature = function(val) {
