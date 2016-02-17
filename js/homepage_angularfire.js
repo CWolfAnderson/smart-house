@@ -145,7 +145,6 @@ var usertalking = '';
           
           // To print what annyang hears
           annyang.debug();
-          console.log($(".room"));
           
           $(".room").droppable({
             
@@ -193,32 +192,42 @@ var usertalking = '';
     
     var alert = customAlert();
     $scope.roomClick = function(room) {
-      console.log("room: " + roomId);
+      console.log("room: " + room);
       
-      // var Alert = new CustomAlert();
-      // Alert.render("HELLO");
-            
-      alert.render("WHAT:LSKDJL:asdfasdfasdfasdfasdfasdf");
+      // set values:
+      // database: room.mode, room.light.on, room.light.color, room.temp, room.music.on, room.music.source, room.music.volume
+      // ids: mode, light, light-color, temp-slider, music-on, music-source, volume
+      $("[name=mode]").val(room.mode);
+      $("#myonoffswitch").prop("checked", room.light.on);
+      $("#light-color").val(room.light.color);
+                  
+      $("#temperature").val(room.thermostat.temp);
+      $("#temp-slider").val(room.thermostat.temp);
+      
+      alert.render(room.name);
       
     };
     
     function customAlert() {
       return {
-        render: function(dialog){
+        render: function(roomName){
           var winW = window.innerWidth;
           var winH = window.innerHeight;
           var dialogoverlay = document.getElementById('dialogoverlay');
           var dialogbox = document.getElementById('dialogbox');
           dialogoverlay.style.display = "block";
           dialogoverlay.style.height = winH+"px";
-          dialogbox.style.left = (winW/2) - (550 * .5)+"px";
+          dialogbox.style.left = (winW/2) - (550 * 0.5)+"px";
           dialogbox.style.top = "100px";
           dialogbox.style.display = "block";
-          document.getElementById('dialogboxhead').innerHTML = "Acknowledge This Message";
-          document.getElementById('dialogboxbody').innerHTML = dialog;
+          document.getElementById('dialogboxhead').innerHTML = roomName;
+          // document.getElementById('dialogboxbody').innerHTML = dialog;
+          // set mode, light, temperature
+          
+          
           document.getElementById('dialogboxfoot').innerHTML = '<button onclick="dismissAlert()">OK</button>';
         }
-      }
+      };
     }
     
     $scope.userClick = function() {
@@ -250,10 +259,14 @@ var usertalking = '';
     };
     
   }]);
-    
+  
 })();
 
 function dismissAlert() {
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
+}
+
+function updateTemperature(val) {
+  document.getElementById('temperature').textContent = val;
 }
