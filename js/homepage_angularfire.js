@@ -39,28 +39,6 @@ var usertalking = '';
         ref.child("users").on('child_changed', function(childSnapshot, prevChildKey) {
           $("#"+childSnapshot.key()).css({'top': childSnapshot.val().posY, 'left' : childSnapshot.val().posX});
         });
-        // <<<<<<< HEAD
-        /*ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
-        if(childSnapshot.val().light.on) {
-        $("div[DBid='"+childSnapshot.key()+"']").css({'background-color':childSnapshot.val().light.color});
-      }
-      else {
-      $("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'white'});
-    }
-  });*/
-  
-  // =======
-  ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
-    console.log($("div[DBid='"+childSnapshot.key()+"']"));
-    if($.trim(childSnapshot.val().occupants.length) > 0) {
-      $("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'yellow'});
-    }
-    else {
-      $("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'white'});
-    }
-  });
-  
-  // >>>>>>> room_modifications
   // speech recognition
   if (annyang !== undefined) {
     
