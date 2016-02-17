@@ -38,7 +38,7 @@ function ($scope, $firebaseObject) {
     var usersRef = ref.child("rooms");
 
     usersRef.push().set(
-      {name: name, id: id, occupants: [], temp: "", mode: "", music: {on: false, source: "", volume: 0}, light: {on: false, color: "", intensity: 0}});
+      {name: name, id: id, occupants: [], temp: "", mode: "", music: {on: false, source: "", volume: 0}, light: {on: false, color: "#ffffff", intensity: 0}});
 
       // var users = ref.child("house");
 
