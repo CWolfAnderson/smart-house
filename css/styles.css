@@ -51,13 +51,13 @@ body {
 #hallway {
   top: 0;
   left: 350px;
-  width: 200px;
+  width: 250px;
   height: 300px;
 }
 
 #bedroom2 {
   top: 0;
-  left: 500px;
+  left: 600px;
   width:350px;
   height: 300px;
 }
@@ -72,7 +72,7 @@ body {
 #kitchen {
   top: 300px;
   left: 500px;
-  width: 350px;
+  width: 450px;
   height: 300px;
 }
 
@@ -85,14 +85,14 @@ body {
 
 #theater {
   top: 600px;
-  width: 450px;
+  width: 400px;
   height: 250px;
-  left: 150px;
+  left: 200px;
 }
 
 #bathroom2 {
   top: 600px;
-  width: 250px;
+  width: 350px;
   height: 250px;
   left: 600px;
 }
