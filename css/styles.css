@@ -119,6 +119,25 @@ body {
   width: 250px;
 }
 
+#light-color {
+  margin-left: 12px;
+  height: 30px;
+  width: 55px;
+  
+}
+
+.lightson {
+   -moz-box-shadow:    inset 0 0 20px #f0c17a;
+   -webkit-box-shadow: inset 0 0 20px #f0c17a;
+   box-shadow:         inset 0 0 20px #f0c17a;
+}
+
+.lightsoff {
+   -moz-box-shadow:    inset 0 0 20px #9a9a9a;
+   -webkit-box-shadow: inset 0 0 20px #9a9a9a;
+   box-shadow:         inset 0 0 20px #9a9a9a;
+}
+
 /* for pop-up */
 
 #dialogoverlay{

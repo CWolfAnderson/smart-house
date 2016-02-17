@@ -198,11 +198,27 @@ var usertalking = '';
       // database: room.mode, room.light.on, room.light.color, room.temp, room.music.on, room.music.source, room.music.volume
       // ids: mode, light, light-color, temp-slider, music-on, music-source, volume
       $("[name=mode]").val(room.mode);
-      $("#myonoffswitch").prop("checked", room.light.on);
-      $("#light-color").val(room.light.color);
-                  
-      $("#temperature").val(room.thermostat.temp);
-      $("#temp-slider").val(room.thermostat.temp);
+      
+      $("#lightswitch").prop("checked", room.light.on);
+      
+      $("#light-color").val(room.light.color);     
+      
+      if (room.thermostat.on) {
+        $("#temperature").text(room.thermostat.temp);      
+        $("#temp-slider").val(room.thermostat.temp);        
+      } else {
+        $("#temperature").text("");
+        $("#temp-slider").val(80);
+      }
+      $("#thermostatswitch").prop("checked", room.thermostat.on);
+      
+      $("#musicswitch").prop("checked", room.music.on);
+      if (room.music.on) {
+        $("#volume").text(room.music.volume);
+        $("#volume-slider").val(room.music.volume);
+      } else {
+        $("#volume").text(0);
+      }
       
       alert.render(room.name);
       
@@ -269,4 +285,8 @@ function dismissAlert() {
 
 function updateTemperature(val) {
   document.getElementById('temperature').textContent = val;
+}
+
+function updateVolume(val) {
+  document.getElementById('volume').textContent = val;
 }

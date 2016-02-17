@@ -72,9 +72,9 @@
   </div>
   
   <div class="picture">
-    <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room" ng-dblclick="roomClick(room);" style="background-color: {{room.light.color}}">
+    <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room" ng-class="room.light.on ? 'lightson' : 'lightsoff'" ng-dblclick="roomClick(room);" style="background-color: {{room.light.color}}">
       <p><strong>{{room.name}}</strong></p>
-      <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
+      <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}} ({{room.music.volume}}%)</p>
       <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
       <p class="temp-display" ng-if="room.thermostat.on">{{room.thermostat.temp}}&deg;</p>
     </div>
@@ -86,6 +86,7 @@
     <div>
       <div id="dialogboxhead"></div>
       <div id="dialogboxbody">
+        
         <div class='panel panel-info'>
           <p>Mode:
             <select name='mode' id='mode'>
@@ -95,36 +96,61 @@
               <option value='study'>study</option>
             </select>
           </p>
+          <hr>
           <p>Light:
             <!-- On: <input type="checkbox" name="lighton"> -->
             <div class="onoffswitch">
-              <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
-              <label class="onoffswitch-label" for="myonoffswitch">
+              <input type="checkbox" name="lightswitch" class="onoffswitch-checkbox" id="lightswitch">
+              <label class="onoffswitch-label" for="lightswitch">
                 <span class="onoffswitch-inner"></span>
                 <span class="onoffswitch-switch"></span>
               </label>
             </div>
             <!-- <select name='light' id='light'>
-              <option value=''>-</option>
-              <option value='low'>low</option>
-              <option value='medium'>medium</option>
-              <option value='high'>high</option>
-            </select> -->
-            <input type='color' id='light-color'>
-          </p>
-          <p>Temperature: <strong><span id='temperature'></span> &deg; <strong>
-            <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
-          </p>
-          <p>Music: <span id="music-on"></span> <span id="music-source"></span> <span id="volume"></span></p>
-        </div>
-        
+            <option value=''>-</option>
+            <option value='low'>low</option>
+            <option value='medium'>medium</option>
+            <option value='high'>high</option>
+          </select> -->
+          <input type='color' id='light-color'>
+        </p>
+        <hr>
+        <p>Thermostat: <strong><span id='temperature'></span> &deg; </strong>
+          <div class="onoffswitch">
+            <input type="checkbox" name="thermostatswitch" class="onoffswitch-checkbox" id="thermostatswitch">
+            <label class="onoffswitch-label" for="thermostatswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+          <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
+        </p>
+        <hr>
+        <p>Music: <span id="volume"></span>%
+          <div class="onoffswitch">
+            <input type="checkbox" name="musicswitch" class="onoffswitch-checkbox" id="musicswitch">
+            <label class="onoffswitch-label" for="musicswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+          Source: 
+          <select name='source' id='source'>
+            <option value=''>-</option>
+            <option value='AUX'>AUX</option>
+            <option value='Radio'>Radio</option>
+            <option value='Bluetooth'>Bluetooth</option>
+          </select>
+          <input id='volume-slider' type='range' name='volume' min='0' max='100' onchange='updateVolume(this.value);'>
+        </p>
       </div>
-      <div id="dialogboxfoot"></div>
     </div>
+    <div id="dialogboxfoot"></div>
   </div>
-  
-  <p>Inside container</p>
-  
+</div>
+
+<p>Inside container</p>
+
 </div>
 
 </body>
