@@ -77,7 +77,7 @@
   </div>
 
     <div class="picture">
-      <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.color}}">
+      <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room" ng-click="roomClick(room.id);" style="background-color: {{room.light.on ? room.light.color : 'white'}}">
         <p><strong>{{room.name}}</strong></p>
         <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}}</p>
         <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>

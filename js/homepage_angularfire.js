@@ -40,9 +40,8 @@ var usertalking = '';
           $("#"+childSnapshot.key()).css({'top': childSnapshot.val().posY, 'left' : childSnapshot.val().posX});
         });
 		ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
-			console.log($("div[DBid='"+childSnapshot.key()+"']"));
-			if($.trim(childSnapshot.val().occupants.length) > 0) {
-				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'yellow'});
+			if(childSnapshot.val().light.on) {
+				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':childSnapshot.val().light.color});
 			}
 			else {
 				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'white'});
@@ -153,34 +152,17 @@ var usertalking = '';
               console.log("foo");
               // $(this)
               // .addClass( "ui-state-highlight" );
-
-              //change the occupants attribute to track who's in what place.
-              if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
-                event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
-                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-                $scope.house.$save();
-              }
-              else {
-                event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
-                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-                $scope.house.$save();
-              }
-
+			  if(!$scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
+				$scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+				$scope.house.$save();
+			  }
               //event.target.style.backgroundColor = "yellow";
             },
             out: function(event, ui) {
-              //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
-              var name = $(ui.draggable)[0].getAttribute("id");
-              var index = event.target.getAttribute("occupants").indexOf(name);
-              var occupants = event.target.getAttribute("occupants");
-              occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
-              event.target.setAttribute("occupants", $.trim(occupants));
-              $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-              $scope.house.$save();
-              // check if there is still an occupant
-              if($.trim(occupants) === '') {
-                //event.target.style.backgroundColor = "white";
-              }
+			  if($scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
+				$scope.house.rooms[event.target.getAttribute("DBid")].light.on = false;
+				$scope.house.$save();
+			  }
 
             }
 
