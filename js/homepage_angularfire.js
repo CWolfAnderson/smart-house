@@ -39,14 +39,14 @@ var usertalking = '';
         ref.child("users").on('child_changed', function(childSnapshot, prevChildKey) {
           $("#"+childSnapshot.key()).css({'top': childSnapshot.val().posY, 'left' : childSnapshot.val().posX});
         });
-		ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
+		/*ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
 			if(childSnapshot.val().light.on) {
 				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':childSnapshot.val().light.color});
 			}
 			else {
 				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'white'});
 			}
-		});
+		});*/
 
         // speech recognition
         if (annyang !== undefined) {
