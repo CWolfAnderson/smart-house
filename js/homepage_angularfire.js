@@ -39,6 +39,15 @@ var usertalking = '';
         ref.child("users").on('child_changed', function(childSnapshot, prevChildKey) {
           $("#"+childSnapshot.key()).css({'top': childSnapshot.val().posY, 'left' : childSnapshot.val().posX});
         });
+		ref.child("rooms").on('child_changed', function(childSnapshot, prevChildKey) {
+			console.log($("div[DBid='"+childSnapshot.key()+"']"));
+			if($.trim(childSnapshot.val().occupants.length) > 0) {
+				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'yellow'});
+			}
+			else {
+				$("div[DBid='"+childSnapshot.key()+"']").css({'background-color':'white'});
+			}
+		});
 
         // speech recognition
         if (annyang !== undefined) {
@@ -157,7 +166,7 @@ var usertalking = '';
                 $scope.house.$save();
               }
 
-              event.target.style.backgroundColor = "yellow";
+              //event.target.style.backgroundColor = "yellow";
             },
             out: function(event, ui) {
               //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
@@ -170,7 +179,7 @@ var usertalking = '';
               $scope.house.$save();
               // check if there is still an occupant
               if($.trim(occupants) === '') {
-                event.target.style.backgroundColor = "white";
+                //event.target.style.backgroundColor = "white";
               }
 
             }
