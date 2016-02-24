@@ -240,7 +240,7 @@ var globalScope;
       } else {
         $("#volume").text(0);
       }
-      
+      $("#source").val(room.music.source);
       roomAlert.render(room);      
     };
     
@@ -342,15 +342,19 @@ var dismissAlert = function() {
   
   currentRoom.light.color = $("#light-color").val();     
   
-  if (currentRoom.thermostat.on) {
-	currentRoom.thermostat.temp = $("#temperature").text();
-  }
   currentRoom.thermostat.on = $("#thermostatswitch").prop("checked");
+  if (currentRoom.thermostat.on) {
+    console.log($("#temp-slider").val());
+    console.log($("#temp-slider"));
+	
+	currentRoom.thermostat.temp = $("#temp-slider").val();
+  }
   
   currentRoom.music.on = $("#musicswitch").prop("checked");
   if (currentRoom.music.on) {
-	currentRoom.music.volume = $("#volume").text();
+	currentRoom.music.volume = $("#volume-slider").val();
   }
+  currentRoom.music.source = $("#source").val();
   globalScope.house.$save();
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
