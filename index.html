@@ -77,7 +77,14 @@
       <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}} ({{room.music.volume}}%)</p>
       <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
       <p class="temp-display" ng-if="room.thermostat.on">{{room.thermostat.temp}}&deg;</p>
-    </div>
+    </div>   
+  </div>
+  
+  <div id="fridge">
+    <strong>Fridge</strong>
+    <ul>
+      <li ng-repeat="item in house.fridge">{{item.name}} ({{item.quantity}} {{item.units}})</li>
+    </ul>
   </div>
   
   <!-- for pop-up -->
@@ -148,8 +155,6 @@
     <div id="dialogboxfoot"></div>
   </div>
 </div>
-
-<p>Inside container</p>
 
 </div>
 

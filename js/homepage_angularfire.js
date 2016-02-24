@@ -260,7 +260,7 @@ var globalScope;
           // document.getElementById('dialogboxbody').innerHTML = dialog;
           // set mode, light, temperature
           
-          document.getElementById('dialogboxfoot').innerHTML = '<button onclick="dismissAlert()">OK</button>';
+          document.getElementById('dialogboxfoot').innerHTML = '<button onclick="cancelAlert()">Cancel</button> <button onclick="dismissAlert()">OK</button>';
         
           currentRoom = room;
         }
@@ -355,6 +355,12 @@ var dismissAlert = function() {
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
 };
+
+var cancelAlert = function() {
+  document.getElementById('dialogbox').style.display = "none";
+  document.getElementById('dialogoverlay').style.display = "none";
+};
+
 
 function stopAlarm() {
   clearInterval(alarmInterval);

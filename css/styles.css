@@ -34,6 +34,16 @@ body {
   margin-left: 100px;
 }
 
+#fridge {
+  position: absolute;
+  top: 525px;
+  left: 1100px;
+  height: 300px;
+  width: 200px;
+  background-color: #ffebe0;
+  border: 1px solid #4f4f4e;
+}
+
 .room {
   position: absolute;
   padding: 10px;
