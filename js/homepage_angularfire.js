@@ -1,11 +1,16 @@
 console.clear();
 var usertalking = '';
+var currentRoom;
+var globalScope;
+
 (function(){
   
   var app = angular.module('smartHouse', ['firebase']);
   
   app.controller('houseController', ['$scope', '$firebaseObject',
   function ($scope, $firebaseObject) {
+    
+    globalScope = $scope;
     
     var ref = new Firebase('https://smart-house.firebaseio.com/');
     
@@ -39,33 +44,14 @@ var usertalking = '';
         ref.child("users").on('child_changed', function(childSnapshot, prevChildKey) {
           $("#"+childSnapshot.key()).css({'top': childSnapshot.val().posY, 'left' : childSnapshot.val().posX});
         });
+        
         // speech recognition
         if (annyang !== undefined) {
           
           console.log("Annyang activated.");
           
           var commands = {
-            
-            // How to use annyang commands
-            
-            // annyang will capture anything after a asterisk (*) and pass it to the function.
-            // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
-            // 'show me *tag': function(tag) {
-            //   var url = 'http://api.flickr.com/services/rest/?tags=' + tag;
-            //   $.getJSON(url);
-            // },
-            
-            // A named variable is a one word variable, that can fit anywhere in your command.
-            // e.g. saying "calculate October stats" will call calculateStats('October');
-            // 'calculate :month stats': function(month) {
-            //   $('#stats').text('Statistics for '+month);
-            // },
-            
-            // By defining a part of the following command as optional, annyang will respond
-            // to both: "say hello to my little friend" as well as "say hello friend"
-            // 'hey (ho) (Jose) (José) say hello (to my little) friend': function() {
-            //   console.log("Brrrrrappp brap brrrappp!");
-            // }
+
             "turn :onOrOff all the lights": function(onOrOff) {
               alert(usertalking);
               if (onOrOff === "on") {
@@ -142,14 +128,13 @@ var usertalking = '';
               
               // to getstatus of person after drop
               console.log(ui.draggable[0].getAttribute("status"));
-                            
+              
               if (ui.draggable[0].getAttribute("status") === "unknown") {
                 alert("Intruder alert! Interuder alert!");
                 
                 alarmInterval = setInterval(flashText, 500);
                 
-                $("body").append("<button onclick=clearInterval(alarmInterval)>Coast Clear</button>");
-                            
+                $("body").append("<button onclick=stopAlarm()>Coast Clear</button>");                    
               }                    
               
               function flashText() {
@@ -159,7 +144,7 @@ var usertalking = '';
                 } else if ($(".room").css("backgroundColor") === "rgb(255, 255, 255)") {
                   $(".room").css("backgroundColor", "rgb(255, 255, 255)");
                 } else {
-                    $(".room").css("backgroundColor", "#f6f4f4");
+                  $(".room").css("backgroundColor", "#f6f4f4");
                 }
                 
                 console.log($(".room").css("backgroundColor"));
@@ -169,7 +154,7 @@ var usertalking = '';
               
               function stopTextColor() {
                 clearInterval(nIntervId);
-              }
+              }            
               
               // $(this)
               // .addClass( "ui-state-highlight" );
@@ -256,13 +241,12 @@ var usertalking = '';
         $("#volume").text(0);
       }
       
-      roomAlert.render(room.name);
-      
+      roomAlert.render(room);      
     };
     
     function customAlert() {
       return {
-        render: function(roomName){
+        render: function(room){
           var winW = window.innerWidth;
           var winH = window.innerHeight;
           var dialogoverlay = document.getElementById('dialogoverlay');
@@ -272,14 +256,16 @@ var usertalking = '';
           dialogbox.style.left = (winW/2) - (550 * 0.5)+"px";
           dialogbox.style.top = "100px";
           dialogbox.style.display = "block";
-          document.getElementById('dialogboxhead').innerHTML = roomName;
+          document.getElementById('dialogboxhead').innerHTML = room.name;
           // document.getElementById('dialogboxbody').innerHTML = dialog;
           // set mode, light, temperature
-                    
+          
           document.getElementById('dialogboxfoot').innerHTML = '<button onclick="dismissAlert()">OK</button>';
+        
+          currentRoom = room;
         }
-      };
-    }
+      };      
+    } // end customAlert
     
     $scope.userClick = function() {
       localStorage.userTalking = $(this).attr("name");
@@ -315,10 +301,21 @@ var usertalking = '';
 
 var alarmInterval;
 
-function dismissAlert() {
-  document.getElementById('dialogbox').style.display = "none";
-  document.getElementById('dialogoverlay').style.display = "none";
-}
+// function dismissAlert() {
+// 
+//   // update firebase
+//   // fredNameRef.update({ first: 'Fred', last: 'Flintstone' });
+//   console.log("From dismissAlert:");
+//   // console.log(currentRoom);
+//   
+//   // var rooms = new Firebase('https://smart-house.firebaseio.com/rooms');
+//   // console.log("ROOMS:");
+//   // console.log(rooms);
+//   
+//   
+//   document.getElementById('dialogbox').style.display = "none";
+//   document.getElementById('dialogoverlay').style.display = "none";
+// }
 
 function updateTemperature(val) {
   document.getElementById('temperature').textContent = val;
@@ -326,4 +323,26 @@ function updateTemperature(val) {
 
 function updateVolume(val) {
   document.getElementById('volume').textContent = val;
+}
+
+var dismissAlert = function() {
+
+  // update firebase
+  // fredNameRef.update({ first: 'Fred', last: 'Flintstone' });
+  console.log("From dismissAlert:");
+  // console.log(currentRoom);
+  
+  console.log(currentRoom);
+  
+  // var rooms = new Firebase('https://smart-house.firebaseio.com/rooms');
+  // console.log("ROOMS:");
+  // console.log(rooms);
+  
+  document.getElementById('dialogbox').style.display = "none";
+  document.getElementById('dialogoverlay').style.display = "none";
+};
+
+function stopAlarm() {
+  clearInterval(alarmInterval);
+  location.reload();
 }
