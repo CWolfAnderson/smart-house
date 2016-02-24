@@ -214,7 +214,7 @@ var globalScope;
     var roomAlert = customAlert();
     $scope.roomClick = function(room) {
       console.log("room: " + room);
-      
+      clickedRoom = room;
       // set values:
       // database: room.mode, room.light.on, room.light.color, room.temp, room.music.on, room.music.source, room.music.volume
       // ids: mode, light, light-color, temp-slider, music-on, music-source, volume
@@ -333,11 +333,25 @@ var dismissAlert = function() {
   // console.log(currentRoom);
   
   console.log(currentRoom);
-  
   // var rooms = new Firebase('https://smart-house.firebaseio.com/rooms');
   // console.log("ROOMS:");
   // console.log(rooms);
+  currentRoom.mode = $("[name=mode]").val();
   
+  currentRoom.light.on = $("#lightswitch").prop("checked");
+  
+  currentRoom.light.color = $("#light-color").val();     
+  
+  if (currentRoom.thermostat.on) {
+	currentRoom.thermostat.temp = $("#temperature").text();
+  }
+  currentRoom.thermostat.on = $("#thermostatswitch").prop("checked");
+  
+  currentRoom.music.on = $("#musicswitch").prop("checked");
+  if (currentRoom.music.on) {
+	currentRoom.music.volume = $("#volume").text();
+  }
+  globalScope.house.$save();
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
 };
