@@ -81,7 +81,7 @@ var globalScope;
             "turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
               alert(usertalking);
               if (onOrOff === "on") {
-                alert("Turning on the lights in the " + room);
+                alert("Turning on the lights in the " + roomName);
               } else if (onOrOff === "off") {
                 alert("Turning off the lights.");
               }
