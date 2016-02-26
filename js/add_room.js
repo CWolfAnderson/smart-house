@@ -33,22 +33,14 @@ function ($scope, $firebaseObject) {
     console.log(name);
     console.log("-----------------");
 
-    // $scope.house.users.add({name: name, priority: priority, status: status, location: "outside", posX: 0, posY: 0});
-
     var usersRef = ref.child("rooms");
 
     usersRef.push().set(
       {name: name, id: id, occupants: [], temp: "", mode: "", music: {on: false, source: "", volume: 0}, light: {on: false, color: "#ffffff", intensity: 0}});
 
-      // var users = ref.child("house");
-
-      // $scope.house.users.$add({name: name, priority: priority, status: status, location: "outside", posX: 0, posY: 0});
-
-      // $scope.house.users.push({name: name, priority: priority, status: status, location: "outside", posX: 0, posY: 0});
-
       $scope.name = "";
       $scope.id = "";
-      
+
     };
   }
 ]);
