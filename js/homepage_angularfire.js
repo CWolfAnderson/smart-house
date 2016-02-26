@@ -124,8 +124,7 @@ var globalScope;
           
           $(".room").droppable({
             
-            drop: function(event, ui) {
-              
+            drop: function(event, ui) { 
               // to getstatus of person after drop
               console.log(ui.draggable[0].getAttribute("status"));
               
@@ -155,22 +154,35 @@ var globalScope;
               function stopTextColor() {
                 clearInterval(nIntervId);
               }            
-              
-              // $(this)
-              // .addClass( "ui-state-highlight" );
-              // <<<<<<< HEAD
-              if(!$scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
-                $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
-                $scope.house.$save();
-              }
-              //event.target.style.backgroundColor = "yellow";
-            },
+
+			if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
+			  event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
+			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+			  $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+			  $scope.house.$save();
+			}
+			else {
+			  event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
+			  $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+			  $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+			  $scope.house.$save();
+			}              //event.target.style.backgroundColor = "yellow";
+            console.log(event.target.getAttribute("occupants"));
+			},
             out: function(event, ui) {
-              if($scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
-                $scope.house.rooms[event.target.getAttribute("DBid")].light.on = false;
-                $scope.house.$save();
-              }
-              
+			var name = $(ui.draggable)[0].getAttribute("id");
+			var index = event.target.getAttribute("occupants").indexOf(name);
+			var occupants = event.target.getAttribute("occupants");
+			occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
+			event.target.setAttribute("occupants", $.trim(occupants));
+			$scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+			// check if there is still an occupant
+			if(occupants == '') {
+				console.log(event.target.id + " is empty. Turning off lights.");
+				$scope.house.rooms[event.target.getAttribute("DBid")].light.on = false;
+			}
+			$scope.house.$save();
+            console.log(event.target.getAttribute("occupants"));
               // =======
               //               
               //               //change the occupants attribute to track who's in what place.
