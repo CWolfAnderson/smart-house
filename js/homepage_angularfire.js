@@ -88,7 +88,7 @@ var globalScope;
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.on = true;
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.temp = deg;
                   $scope.house.$save();
-
+                  
                   
                 } else {
                   alert("Check your temperature range and try again.");
@@ -153,7 +153,6 @@ var globalScope;
           $(".room").droppable({
             
             drop: function(event, ui) {
-              
               // to getstatus of person after drop
               console.log(ui.draggable[0].getAttribute("status"));
               
@@ -162,8 +161,8 @@ var globalScope;
                 
                 alarmInterval = setInterval(flashText, 500);
                 
-                $("body").append("<button onclick=stopAlarm()>Coast Clear</button>");                    
-              }                    
+                $("body").append("<button onclick=stopAlarm()>Coast Clear</button>");
+              }
               
               function flashText() {
                 
@@ -176,64 +175,42 @@ var globalScope;
                 }
                 
                 console.log($(".room").css("backgroundColor"));
-                // $(".room").css("backgroundColor", $(".room").css("backgroundColor") == "#b9b9b9" ? "#d51414" : "#b9b9b9");
-                // 
               }
               
               function stopTextColor() {
                 clearInterval(nIntervId);
-              }            
+              }
               
-              // $(this)
-              // .addClass( "ui-state-highlight" );
-              // <<<<<<< HEAD
-              if(!$scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
+              if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
+                event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
+                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
                 $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
                 $scope.house.$save();
               }
-              //event.target.style.backgroundColor = "yellow";
+              else {
+                event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
+                $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+                $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+                $scope.house.$save();
+              }              //event.target.style.backgroundColor = "yellow";
+              console.log(event.target.getAttribute("occupants"));
             },
             out: function(event, ui) {
-              if($scope.house.rooms[event.target.getAttribute("DBid")].light.on) {
+              var name = $(ui.draggable)[0].getAttribute("id");
+              var index = event.target.getAttribute("occupants").indexOf(name);
+              var occupants = event.target.getAttribute("occupants");
+              occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
+              event.target.setAttribute("occupants", $.trim(occupants));
+              $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
+              // check if there is still an occupant
+              if(occupants === '') {
+                console.log(event.target.id + " is empty. Turning off lights.");
                 $scope.house.rooms[event.target.getAttribute("DBid")].light.on = false;
-                $scope.house.$save();
               }
-              
-              // =======
-              //               
-              //               //change the occupants attribute to track who's in what place.
-              //               if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
-              //                 event.target.setAttribute("occupants", $.trim(event.target.getAttribute("occupants") + " " + $(ui.draggable)[0].getAttribute("id")));
-              //                 $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-              //                 $scope.house.$save();
-              //               }
-              //               else {
-              //                 event.target.setAttribute("occupants", $.trim($(ui.draggable)[0].getAttribute("id")));
-              //                 $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-              //                 $scope.house.$save();
-              //               }
-              //               
-              //               //event.target.style.backgroundColor = "yellow";
-              //             },
-              //             out: function(event, ui) {
-              //               //leaves some random spaces but unless you're moving several thousand dudes in and out it's no problem.
-              //               var name = $(ui.draggable)[0].getAttribute("id");
-              //               var index = event.target.getAttribute("occupants").indexOf(name);
-              //               var occupants = event.target.getAttribute("occupants");
-              //               occupants = occupants.slice(0,index) + occupants.slice(index+name.length);
-              //               event.target.setAttribute("occupants", $.trim(occupants));
-              //               $scope.house.rooms[event.target.getAttribute("DBid")].occupants = event.target.getAttribute("occupants");
-              //               $scope.house.$save();
-              //               // check if there is still an occupant
-              //               if($.trim(occupants) === '') {
-              //                 //event.target.style.backgroundColor = "white";
-              //               }
-              //               
-              // >>>>>>> room_modifications
+              $scope.house.$save();
+              console.log(event.target.getAttribute("occupants"));
             }
-            
           });
-          
         }
         
       }, 0);
@@ -250,11 +227,11 @@ var globalScope;
       
       $("#lightswitch").prop("checked", room.light.on);
       
-      $("#light-color").val(room.light.color);     
+      $("#light-color").val(room.light.color);
       
       if (room.thermostat.on) {
-        $("#temperature").text(room.thermostat.temp);      
-        $("#temp-slider").val(room.thermostat.temp);        
+        $("#temperature").text(room.thermostat.temp);
+        $("#temp-slider").val(room.thermostat.temp);
       } else {
         $("#temperature").text("");
         $("#temp-slider").val(80);
@@ -268,8 +245,8 @@ var globalScope;
       } else {
         $("#volume").text(0);
       }
-      
-      roomAlert.render(room);      
+      $("#source").val(room.music.source);
+      roomAlert.render(room);
     };
     
     function customAlert() {
@@ -292,14 +269,14 @@ var globalScope;
           
           currentRoom = room;
         }
-      };      
+      };
     } // end customAlert
     
     $scope.userClick = function(user, guid) {
       userTalking = user;
       currentRoom = userLocation(guid);
       // localStorage.userTalking = $(this).attr("name");
-      // localStorage.userRoom = userLocation(this.id);
+      // localStorage.userRoom = userLocation(this.id);  
       
       console.log("Starting Annyang");
       annyang.start();
@@ -330,22 +307,6 @@ var globalScope;
 
 var alarmInterval;
 
-// function dismissAlert() {
-// 
-//   // update firebase
-//   // fredNameRef.update({ first: 'Fred', last: 'Flintstone' });
-//   console.log("From dismissAlert:");
-//   // console.log(currentRoom);
-//   
-//   // var rooms = new Firebase('https://smart-house.firebaseio.com/rooms');
-//   // console.log("ROOMS:");
-//   // console.log(rooms);
-//   
-//   
-//   document.getElementById('dialogbox').style.display = "none";
-//   document.getElementById('dialogoverlay').style.display = "none";
-// }
-
 function updateTemperature(val) {
   document.getElementById('temperature').textContent = val;
 }
@@ -357,29 +318,27 @@ function updateVolume(val) {
 var dismissAlert = function() {
   
   // update firebase
-  // fredNameRef.update({ first: 'Fred', last: 'Flintstone' });
   console.log("From dismissAlert:");
-  // console.log(currentRoom);
   
   console.log(currentRoom);
-  // var rooms = new Firebase('https://smart-house.firebaseio.com/rooms');
-  // console.log("ROOMS:");
-  // console.log(rooms);
+  
   currentRoom.mode = $("[name=mode]").val();
   
   currentRoom.light.on = $("#lightswitch").prop("checked");
   
-  currentRoom.light.color = $("#light-color").val();     
+  currentRoom.light.color = $("#light-color").val();
   
-  if (currentRoom.thermostat.on) {
-    currentRoom.thermostat.temp = $("#temperature").text();
-  }
   currentRoom.thermostat.on = $("#thermostatswitch").prop("checked");
+  if (currentRoom.thermostat.on) {
+    
+    currentRoom.thermostat.temp = $("#temp-slider").val();
+  }
   
   currentRoom.music.on = $("#musicswitch").prop("checked");
   if (currentRoom.music.on) {
-    currentRoom.music.volume = $("#volume").text();
+    currentRoom.music.volume = $("#volume-slider").val();
   }
+  currentRoom.music.source = $("#source").val();
   globalScope.house.$save();
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
