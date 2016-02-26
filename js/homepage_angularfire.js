@@ -53,7 +53,7 @@ var globalScope;
           var commands = {
             
             "turn :onOrOff all the lights": function(onOrOff) {
-              // alert(userTalking.name);
+              
               if (userTalking.priority > 4) {
                 if (onOrOff === "on") {
                   alert("Turning on all the lights.");
@@ -61,49 +61,72 @@ var globalScope;
                     $scope.house.rooms[room].light.on = true;                  
                   });
                   console.log("Turning on all the lights.");
-                  // $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
                 } else if (onOrOff === "off") {
                   alert("Turning off all the lights.");
                   $.each($scope.house.rooms, function(room) {
                     $scope.house.rooms[room].light.on = false;                  
                   });
                   
-                  // $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
                 }
                 $scope.house.$save();
               } else {
-                alert("You have no authoritah.");
+                alert("You have no authoritah (must be 5)");
               }
             },
             
             "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
+              
               if (userTalking.priority > 2) {
-                if (parseInt(deg) > 59 && parseInt(deg) < 101) {
+                if (parseInt(deg) > 54 && parseInt(deg) < 101) {
                   alert("Setting the temperature to " + deg + " degrees.");
-                  
-                  console.log("CURRENT ROOM:");
-                  console.log(currentRoom);
-                  console.log("---------------");
                   
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.on = true;
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.temp = deg;
-                  $scope.house.$save();
-                  
+                  $scope.house.$save();                  
                   
                 } else {
                   alert("Check your temperature range and try again.");
                 }
               } else {
-                alert("You have no authoritah!");
+                alert("You have no authoritah! (must be 3 or higher)");
               }
+              
             },
             
             "(set) (change) (make) (the) mode (to) :mode (mode)": function(mode) {
-              alert("Changing the mode to " + mode);
+              
+              if (userTalking.priority > 2) {
+                if (mode === "study" || mode === "lock down" || mode === "party" || mode === "lockdown") {
+                  alert("Setting the mode to " + mode);
+                  
+                  $scope.house.rooms[currentRoom.getAttribute("DBid")].mode = mode;
+                  $scope.house.$save();                  
+                  
+                } else {
+                  alert("Check your mode and try again.");
+                }
+              } else {
+                alert("You have no authoritah! (must be 3 or higher)");
+              }
+              
             },
             
-            "(set) (change) (make) (the) volume (to) :volume (mode)": function(volume) {
-              alert("Setting the volume to " + volume);
+            "(set) (change) (make) (the) volume (to) :volume (percent)": function(volume) {
+              
+              if (userTalking.priority > 2) {
+                if (volume >= 0 && volume < 101) {
+                  alert("Setting the volume to " + volume);
+                  
+                  $scope.house.rooms[currentRoom.getAttribute("DBid")].music.volume = volume;
+                  $scope.house.$save();                  
+                  
+                } else {
+                  alert("Check your volume and try again.");
+                }
+              } else {
+                alert("You have no authoritah! (must be 3 or higher)");
+              }
+              
             },
             
             "turn :onOrOff (the) (:room) (light) (lights)": function(onOrOff, roomName) {
@@ -159,21 +182,25 @@ var globalScope;
               if (ui.draggable[0].getAttribute("status") === "unknown") {
                 alert("Intruder alert! Interuder alert!");
                 
-                alarmInterval = setInterval(flashText, 500);
+                alarmInterval = setInterval(flashColor, 500);
                 
                 $("body").append("<button onclick=stopAlarm()>Coast Clear</button>");
               }
               
-              function flashText() {
+              function flashColor() {
                 
                 if ($(".room").css("backgroundColor") !== "rgb(213, 20, 20)") {
-                  $(".room").css("backgroundColor", "rgb(213, 20, 20)");
+                  $(".room").css("backgroundColor", "rgb(213, 20, 20)"); // red
+                  $(".room").removeClass("lightsoff");
+                  $(".room").addClass("lightson");
                 } else if ($(".room").css("backgroundColor") === "rgb(255, 255, 255)") {
-                  $(".room").css("backgroundColor", "rgb(255, 255, 255)");
+                  $(".room").css("backgroundColor", "rgb(255, 255, 255)"); // white
+                  $(".room").removeClass("lightson");
+                  $(".room").addClass("lightsoff");
                 } else {
                   $(".room").css("backgroundColor", "#f6f4f4");
                 }
-                
+                                
                 console.log($(".room").css("backgroundColor"));
               }
               
@@ -274,7 +301,7 @@ var globalScope;
     
     $scope.userClick = function(user, guid) {
       userTalking = user;
-      currentRoom = userLocation(guid);
+      userLocation(guid);
       // localStorage.userTalking = $(this).attr("name");
       // localStorage.userRoom = userLocation(this.id);  
       
@@ -287,14 +314,17 @@ var globalScope;
       }, 6000);
     };
     
-    function userLocation(id) {
+    function userLocation(guid) {
+      // console.log("guid: " + guid);
       $(".room").each(function(num, room) {
-        // console.log(room);
-        if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
-          return room;
+        // console.log("ADAM: " + room.getAttribute("occupants").indexOf(guid));
+        if(room.getAttribute("occupants").indexOf(guid) >= 0) {
+          console.log("Setting current room: ");
+          console.log(room);
+          console.log("----------------------");
+          currentRoom = room;
         }
       });
-      return false;
     }
     
     $scope.updateTemperature = function(val) {
