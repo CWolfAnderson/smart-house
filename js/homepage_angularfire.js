@@ -1,5 +1,5 @@
 console.clear();
-var usertalking = '';
+var usertalking = "";
 var currentRoom;
 var globalScope;
 
@@ -51,22 +51,50 @@ var globalScope;
           console.log("Annyang activated.");
           
           var commands = {
-
+            
             "turn :onOrOff all the lights": function(onOrOff) {
-              alert(usertalking);
-              if (onOrOff === "on") {
-                alert("Turning on all the lights.");
-              } else if (onOrOff === "off") {
-                alert("Turning off all the lights.");
+              // alert(userTalking.name);
+              if (userTalking.priority > 4) {
+                if (onOrOff === "on") {
+                  alert("Turning on all the lights.");
+                  $.each($scope.house.rooms, function(room) {
+                    $scope.house.rooms[room].light.on = true;                  
+                  });
+                  console.log("Turning on all the lights.");
+                  // $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+                } else if (onOrOff === "off") {
+                  alert("Turning off all the lights.");
+                  $.each($scope.house.rooms, function(room) {
+                    $scope.house.rooms[room].light.on = false;                  
+                  });
+                  
+                  // $scope.house.rooms[event.target.getAttribute("DBid")].light.on = true;
+                }
+                $scope.house.$save();
+              } else {
+                alert("You have no authoritah.");
               }
             },
             
             "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
-              alert(usertalking);
-              if (parseInt(deg) > 59 && parseInt(deg) < 101) {
-                alert("Setting the temperature to " + deg + " degrees.");
+              if (userTalking.priority > 2) {
+                if (parseInt(deg) > 59 && parseInt(deg) < 101) {
+                  alert("Setting the temperature to " + deg + " degrees.");
+                  
+                  console.log("CURRENT ROOM:");
+                  console.log(currentRoom);
+                  console.log("---------------");
+                  
+                  $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.on = true;
+                  $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.temp = deg;
+                  $scope.house.$save();
+
+                  
+                } else {
+                  alert("Check your temperature range and try again.");
+                }
               } else {
-                alert("Check your temperature range and try again.");
+                alert("You have no authoritah!");
               }
             },
             
@@ -213,7 +241,7 @@ var globalScope;
     
     var roomAlert = customAlert();
     $scope.roomClick = function(room) {
-      console.log("room: " + room);
+      // console.log("room: " + room);
       clickedRoom = room;
       // set values:
       // database: room.mode, room.light.on, room.light.color, room.temp, room.music.on, room.music.source, room.music.volume
@@ -261,17 +289,17 @@ var globalScope;
           // set mode, light, temperature
           
           document.getElementById('dialogboxfoot').innerHTML = '<button onclick="cancelAlert()">Cancel</button> <button onclick="dismissAlert()">OK</button>';
-        
+          
           currentRoom = room;
         }
       };      
     } // end customAlert
     
-    $scope.userClick = function() {
-      localStorage.userTalking = $(this).attr("name");
-      localStorage.userRoom = userLocation(this.id);
-      console.log("LocalStorage is:");
-      console.log(localStorage);
+    $scope.userClick = function(user, guid) {
+      userTalking = user;
+      currentRoom = userLocation(guid);
+      // localStorage.userTalking = $(this).attr("name");
+      // localStorage.userRoom = userLocation(this.id);
       
       console.log("Starting Annyang");
       annyang.start();
@@ -284,11 +312,12 @@ var globalScope;
     
     function userLocation(id) {
       $(".room").each(function(num, room) {
-        console.log(room);
+        // console.log(room);
         if(room.getAttribute("occupants") !== null && room.getAttribute("occupants").indexOf(id) >= 0) {
           return room;
         }
       });
+      return false;
     }
     
     $scope.updateTemperature = function(val) {
@@ -326,7 +355,7 @@ function updateVolume(val) {
 }
 
 var dismissAlert = function() {
-
+  
   // update firebase
   // fredNameRef.update({ first: 'Fred', last: 'Flintstone' });
   console.log("From dismissAlert:");
@@ -343,13 +372,13 @@ var dismissAlert = function() {
   currentRoom.light.color = $("#light-color").val();     
   
   if (currentRoom.thermostat.on) {
-	currentRoom.thermostat.temp = $("#temperature").text();
+    currentRoom.thermostat.temp = $("#temperature").text();
   }
   currentRoom.thermostat.on = $("#thermostatswitch").prop("checked");
   
   currentRoom.music.on = $("#musicswitch").prop("checked");
   if (currentRoom.music.on) {
-	currentRoom.music.volume = $("#volume").text();
+    currentRoom.music.volume = $("#volume").text();
   }
   globalScope.house.$save();
   document.getElementById('dialogbox').style.display = "none";
@@ -360,7 +389,6 @@ var cancelAlert = function() {
   document.getElementById('dialogbox').style.display = "none";
   document.getElementById('dialogoverlay').style.display = "none";
 };
-
 
 function stopAlarm() {
   clearInterval(alarmInterval);

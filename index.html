@@ -65,7 +65,7 @@
     </p>
     
     <div ng-repeat="(guid, user) in house.users" id="{{guid}}" status="{{user.status}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}<br/>Location: {{user.location}}" title="{{user.name}}" name="{{user.name}}" data-trigger="hover" data-placement="right" >
-    <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;" ng-dblclick="userClick()"/>
+    <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;" ng-dblclick="userClick(user, guid)"/>
     
     <p class="user-name">{{user.name}}</p>
     
