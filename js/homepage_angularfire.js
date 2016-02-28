@@ -2,6 +2,7 @@ console.clear();
 var usertalking = "";
 var currentRoom;
 var globalScope;
+var alarmInterval;
 
 (function(){
   
@@ -180,32 +181,22 @@ var globalScope;
               console.log(ui.draggable[0].getAttribute("status"));
               
               if (ui.draggable[0].getAttribute("status") === "unknown") {
-                alert("Intruder alert! Interuder alert!");
+                //alert("Intruder alert! Interuder alert!");
                 
                 alarmInterval = setInterval(flashColor, 500);
                 
-                $("body").append("<button onclick=stopAlarm()>Coast Clear</button>");
+                $("body").append("<button onclick=stopAlarm() class='coastclear'>Coast Clear</button>");
               }
               
               function flashColor() {
-                
-                if ($(".room").css("backgroundColor") !== "rgb(213, 20, 20)") {
-                  $(".room").css("backgroundColor", "rgb(213, 20, 20)"); // red
-                  $(".room").removeClass("lightsoff");
-                  $(".room").addClass("lightson");
-                } else if ($(".room").css("backgroundColor") === "rgb(255, 255, 255)") {
-                  $(".room").css("backgroundColor", "rgb(255, 255, 255)"); // white
-                  $(".room").removeClass("lightson");
-                  $(".room").addClass("lightsoff");
-                } else {
-                  $(".room").css("backgroundColor", "#f6f4f4");
-                }
-                                
-                console.log($(".room").css("backgroundColor"));
-              }
-              
-              function stopTextColor() {
-                clearInterval(nIntervId);
+                $.each($scope.house.rooms, function(room) {
+                    if($scope.house.rooms[room].alarm == 1) {
+                        $scope.house.rooms[room].alarm = 2;
+                    } else {
+                        $scope.house.rooms[room].alarm = 1;
+                    }
+                  });
+                globalScope.house.$save();
               }
               
               if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
@@ -381,5 +372,9 @@ var cancelAlert = function() {
 
 function stopAlarm() {
   clearInterval(alarmInterval);
-  location.reload();
+    $.each(globalScope.house.rooms, function(room) {
+        globalScope.house.rooms[room].alarm = 0;
+    });
+    $(".coastclear").hide();
+    globalScope.house.$save();
 }
