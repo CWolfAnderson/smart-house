@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../css/styles.css">
 
   <!-- Google Font Ubuntu -->
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet" type="text/css">
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -42,24 +42,28 @@
 
         <h1>Judicious Online Super Edifice</h1>
         <p><a href="../index.html" class="btn btn-info btn-sm">Home</a></p>
-        <h3>Users</h3>
+        <h3>Add User</h3>
+
+        <p>Name: <input type="text" ng-model="name" placeholder="name"></p>
+        <p>Priority: <input type="text" ng-model="priority" placeholder="0-5"></p>
+        <p>Status: <input type="text" ng-model="status" placeholder="resident, unknown, friend, restricted"></p>
+        <p><div class="btn btn-success btn-sm" ng-click="addUser(name, priority, status)">Submit</div></p>
 
       </div>
 
-      <div class="users">
-        <ol>
-          <li ng-repeat="user in house.users" class="center">
-            <p><strong>Name:</strong> {{user.name}}</p>
-            <p><strong>Priority:</strong> {{user.priority}}</p>
-            <p><strong>Status:</strong> {{user.status}}</p>
-            <p><strong>Location:</strong> {{user.location}}</p>
-            <p><strong>Position:</strong> ({{user.posX}}, {{user.posY}})</p>
-            <br>
-          </li>
-        </ol>
-      </div>
+      <ol>
+        <li ng-repeat="user in house.users" class="center">
+          <p><strong>Name:</strong> {{user.name}}</p>
+          <p><strong>Priority:</strong> {{user.priority}}</p>
+          <p><strong>Status:</strong> {{user.status}}</p>
+          <p><strong>Location:</strong> {{user.location}}</p>
+          <p><strong>Position:</strong> ({{user.posX}}, {{user.posY}})</p>
+        </li>
+      </ol>
 
     </div>
 
-  </body>
-  </html>
+  </div>
+
+</body>
+</html>
