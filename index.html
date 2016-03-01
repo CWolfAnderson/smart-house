@@ -4,7 +4,7 @@
   
   <link rel="shortcut icon" type="image/png" href="img/house.png"/>
   <meta charset="utf-8">
-  <title>J.O.S.E.</title>
+  <title>JOSE</title>
   
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -75,12 +75,12 @@
   </div>
   
   <div class="picture">
-    <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room {{room.light.on || room.alarm ? 'lightson' : 'lightsoff'}} " ng-dblclick="roomClick(room);" style="{{room.alarm=='1' ? 'background-color: #ff0000': room.alarm=='2' ? 'background-color: #ffffff' : ('background-color: ' + room.light.color)}}">
+    <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room" ng-class="{{room.light.on || room.alarm}} ? 'lightson' : 'lightsoff'" ng-dblclick="roomClick(room);" style="{{room.alarm=='1' ? 'background-color: #ff0000': room.alarm=='2' ? 'background-color: #ffffff' : ('background-color: ' + room.light.color)}}" mode="{{room.mode}}">
       <p><strong>{{room.name}}</strong></p>
       <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}} ({{room.music.volume}}%)</p>
       <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
       <p class="temp-display" ng-if="room.thermostat.on">{{room.thermostat.temp}}&deg;</p>
-    </div>   
+    </div>
   </div>
   
   <div id="fridge">
