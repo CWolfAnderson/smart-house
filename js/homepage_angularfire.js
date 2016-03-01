@@ -69,7 +69,7 @@ var alarmInterval;
                 }
                 $scope.house.$save();
               } else {
-                responsiveVoice.speak("You do not have authoritah to do that " + userTalking.name + ". Must be 3 or higher.");
+                responsiveVoice.speak("You have no authoritah! " + userTalking.name + ". Must be 3 or higher.");
               }
             },
             
@@ -92,7 +92,7 @@ var alarmInterval;
                 }
                 $scope.house.$save();
               } else {
-                responsiveVoice.speak("You do not have authoritah to do that. Must be 5.");
+                responsiveVoice.speak("You have no authoritah! Must be 5.");
                 // alert("You have no authoritah (must be 5)");
               }
             },
@@ -112,7 +112,7 @@ var alarmInterval;
                   responsiveVoice.speak("Temperature range must be between 55 to 100 degrees.");
                 }
               } else {
-                responsiveVoice.speak("You do not have authoritah to do that. Must be 3 or higher.");
+                responsiveVoice.speak("You have no authoritah! Must be 3 or higher.");
               }
               
             },
@@ -130,7 +130,7 @@ var alarmInterval;
                   responsiveVoice.speak("Check your mode and try again.");
                 }
               } else {
-                responsiveVoice.speak("You do not have authoritah to do that. Must be 3 or higher.");
+                responsiveVoice.speak("You have no authoritah! Must be 3 or higher.");
               }
               
             },
@@ -154,7 +154,7 @@ var alarmInterval;
                   // alert("Check your volume and try again.");
                 }
               } else {
-                responsiveVoice.speak("You do not have authoritah to do that. Must be 3 or higher.");
+                responsiveVoice.speak("You have no authoritah! Must be 3 or higher.");
                 // alert("You have no authoritah! (must be 3 or higher)");
               }
               
@@ -163,13 +163,15 @@ var alarmInterval;
             "(set) (change) (make) (the) light color (to) *color": function(color) {            
               
               if (userTalking.priority > 2) {
-                
+                var originalColor = color;
                 color = color.toLowerCase();
                 color = color.replace(" ", "");
                 
+                console.log("New color: " + color);
+                
                 if (cssColors.hasOwnProperty(color)) {                  
                   
-                  responsiveVoice.speak("Light color set to " + color);                                    
+                  responsiveVoice.speak("Light color set to " + originalColor);                                    
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].light.color = cssColors[color];
                   $scope.house.$save();                  
                   
@@ -207,7 +209,7 @@ var alarmInterval;
               responsiveVoice.speak(phrase);
             },
             
-            "what is the answer to (life the universe and) everything": function() {
+            "what is the answer to (life) (the) (universe) (and) everything": function() {
               responsiveVoice.speak("The answer to life the universe and everything is 42.");
             }
             
@@ -411,6 +413,12 @@ var dismissAlert = function() {
   
   currentRoom.mode = $("[name=mode]").val();
   
+  // if (currentRoom.mode === "party") {
+  //   
+  //   var partyInterval = setInterval(changeColor, 300);
+  //   
+  // }
+  
   currentRoom.light.on = $("#lightswitch").prop("checked");
   
   currentRoom.light.color = $("#light-color").val();
@@ -443,6 +451,14 @@ function stopAlarm() {
   });
   $(".coastclear").hide();
   globalScope.house.$save();
+}
+
+function changeColor() {
+  $("#" + currentRoom.id).css("background-color", randomColor());
+}
+
+function randomColor() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 var cssColors = {"aliceblue":"#f0f8ff","antiquewhite":"#faebd7","aqua":"#00ffff","aquamarine":"#7fffd4","azure":"#f0ffff",
