@@ -100,7 +100,7 @@ var alarmInterval;
               }
             },
             
-            "(set) (change) (make) (the) temperature (to) :deg (degrees)": function(deg) {
+            "(set) (change) (make) (turn) (the) temperature (to) :deg (degrees)": function(deg) {
               
               if (userTalking.priority > 2) {
                 if (parseInt(deg) > 54 && parseInt(deg) < 101) {
@@ -120,7 +120,7 @@ var alarmInterval;
               
             },
             
-            "(set) (change) (make) (the) mode (to) :mode (mode)": function(mode) {
+            "(set) (change) (make) (turn) (the) mode (to) :mode (mode)": function(mode) {
               
               if (userTalking.priority > 2) {
                 if (mode === "study" || mode === "lock down" || mode === "party" || mode === "lockdown") {
@@ -138,7 +138,7 @@ var alarmInterval;
               
             },
             
-            "(set) (change) (make) (the) volume (to) :volume (percent)": function(volume) {
+            "(set) (change) (make) (turn) (the) volume (to) :volume (percent)": function(volume) {
               
               volume = volume.replace("%", "");
               volume = parseInt(volume);
@@ -163,7 +163,7 @@ var alarmInterval;
               
             },
             
-            "(set) (change) (make) (the) light color (to) *color": function(color) {            
+            "(set) (change) (make) (turn) (the) light color (to) *color": function(color) {            
               
               if (userTalking.priority > 2) {
                 var originalColor = color;
