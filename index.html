@@ -34,11 +34,10 @@
   <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
   
   <!-- custom angularfire -->
-  <script src="js/homepage_angularfire.js"></script>
+  <script src="js/main_controller.js"></script>
   
   <!-- jQuery UI (allows draggable()) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-  <!-- <script src="lib/jquery-ui-1.11.4.custom/jquery-ui.min.js" charset="utf-8"></script> -->
   
   <!-- Bootstrap JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -75,9 +74,9 @@
   </div>
   
   <div class="picture">
-
+    
     <div ng-repeat="(guid, room) in house.rooms" DBid="{{guid}}" id="{{room.id}}" occupants ="{{room.occupants}}" class="room {{room.light.on || room.alarm ? 'lightson' : 'lightsoff'}} " ng-dblclick="roomClick(room);" style="{{room.alarm=='1' ? 'background-color: #ff0000': room.alarm=='2' ? 'background-color: #ffffff' : ('background-color: ' + room.light.color)}}" mode="{{room.mode}}">
-
+      
       <p><strong>{{room.name}}</strong></p>
       <p class="music-display" ng-if="room.music.on"><span class="glyphicon glyphicon-volume-up"></span> {{room.music.source}} ({{room.music.volume}}%)</p>
       <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
@@ -112,7 +111,6 @@
         </p>
         <hr>
         <p>Light:
-          <!-- On: <input type="checkbox" name="lighton"> -->
           <div class="onoffswitch">
             <input type="checkbox" name="lightswitch" class="onoffswitch-checkbox" id="lightswitch">
             <label class="onoffswitch-label" for="lightswitch">
@@ -120,12 +118,7 @@
               <span class="onoffswitch-switch"></span>
             </label>
           </div>
-          <!-- <select name='light' id='light'>
-          <option value=''>-</option>
-          <option value='low'>low</option>
-          <option value='medium'>medium</option>
-          <option value='high'>high</option>
-        </select> -->
+
         <input type='color' id='light-color'>
       </p>
       <hr>

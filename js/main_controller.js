@@ -59,17 +59,18 @@ var alarmInterval;
               
               if (userTalking.priority > 2) {
                 if (onOrOff === "on") {
-                  responsiveVoice.speak("The lights are now on " + userTalking.name);
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].light.on = true;
+                  $scope.house.$save();
+                  responsiveVoice.speak("The lights are now on " + userTalking.name);
                   
                 } else if (onOrOff === "off") {
-                  responsiveVoice.speak("The lights are now off " + userTalking.name);
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].light.on = false;
+                  $scope.house.$save();
+                  responsiveVoice.speak("The lights are now off " + userTalking.name);
                   
                 }
-                $scope.house.$save();
               } else {
-                responsiveVoice.speak("You have no authoritah! " + userTalking.name + ". Must be 3 or higher.");
+                responsiveVoice.speak(userTalking.name + ". You have no authoritah! " + userTalking.name + ". Must be 3 or higher.");
               }
             },
             
@@ -77,22 +78,24 @@ var alarmInterval;
               
               if (userTalking.priority > 4) {
                 if (onOrOff === "on") {
-                  responsiveVoice.speak("Turning on all the lights.");
                   // alert("Turning on all the lights.");
                   $.each($scope.house.rooms, function(room) {
                     $scope.house.rooms[room].light.on = true;                  
                   });
+                  $scope.house.$save();
+                  responsiveVoice.speak("Turning on all the lights.");
+
                 } else if (onOrOff === "off") {
-                  responsiveVoice.speak("Turning off all the lights.");
                   // alert("Turning off all the lights.");
                   $.each($scope.house.rooms, function(room) {
                     $scope.house.rooms[room].light.on = false;                  
                   });
-                  
+                  $scope.house.$save();
+                  responsiveVoice.speak("Turning off all the lights.");
+
                 }
-                $scope.house.$save();
               } else {
-                responsiveVoice.speak("You have no authoritah! Must be 5.");
+                responsiveVoice.speak(userTalking.name + ". You have no authoritah! Must be 5.");
                 // alert("You have no authoritah (must be 5)");
               }
             },
@@ -102,11 +105,11 @@ var alarmInterval;
               if (userTalking.priority > 2) {
                 if (parseInt(deg) > 54 && parseInt(deg) < 101) {
                   
-                  responsiveVoice.speak("Set the temperature to " + deg + " degrees.");
                   
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.on = true;
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].thermostat.temp = deg;
                   $scope.house.$save();                  
+                  responsiveVoice.speak("Set the temperature to " + deg + " degrees.");
                   
                 } else {                  
                   responsiveVoice.speak("Temperature range must be between 55 to 100 degrees.");
@@ -121,16 +124,16 @@ var alarmInterval;
               
               if (userTalking.priority > 2) {
                 if (mode === "study" || mode === "lock down" || mode === "party" || mode === "lockdown") {
-                  responsiveVoice.speak("Setting the mode to " + mode);
                   
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].mode = mode;
                   $scope.house.$save();                  
+                  responsiveVoice.speak("Setting the mode to " + mode);
                   
                 } else {                  
                   responsiveVoice.speak("Check your mode and try again.");
                 }
               } else {
-                responsiveVoice.speak("You have no authoritah! Must be 3 or higher.");
+                responsiveVoice.speak(userTalking.name + ". You have no authoritah! Must be 3 or higher.");
               }
               
             },
@@ -143,18 +146,18 @@ var alarmInterval;
               
               if (userTalking.priority > 2) {
                 if (volume >= 0 && volume < 101) {
-                  responsiveVoice.speak("Setting the volume to " + volume + " percent");
                   // alert("Setting the volume to " + volume);
                   
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].music.volume = volume;
                   $scope.house.$save();                  
+                  responsiveVoice.speak("Setting the volume to " + volume + " percent");
                   
                 } else {
                   responsiveVoice.speak("Check your volume and try again.");
                   // alert("Check your volume and try again.");
                 }
               } else {
-                responsiveVoice.speak("You have no authoritah! Must be 3 or higher.");
+                responsiveVoice.speak(userTalking.name + ". You have no authoritah! Must be 3 or higher.");
                 // alert("You have no authoritah! (must be 3 or higher)");
               }
               
@@ -171,15 +174,15 @@ var alarmInterval;
                 
                 if (cssColors.hasOwnProperty(color)) {                  
                   
-                  responsiveVoice.speak("Light color set to " + originalColor);                                    
                   $scope.house.rooms[currentRoom.getAttribute("DBid")].light.color = cssColors[color];
                   $scope.house.$save();                  
+                  responsiveVoice.speak("Light color set to " + originalColor);                                    
                   
                 } else {
                   responsiveVoice.speak("Check your color and try again.");
                 }
               } else {
-                responsiveVoice.speak("You have no authoritah! (must be 3 or higher)");
+                responsiveVoice.speak(userTalking.name + ". You have no authoritah! (must be 3 or higher)");
               }
             },        
             
@@ -236,7 +239,7 @@ var alarmInterval;
               }
               
               function flashColor() {
-                // <<<<<<< HEAD
+
                 $.each($scope.house.rooms, function(room) {
                   if($scope.house.rooms[room].alarm == 1) {
                     $scope.house.rooms[room].alarm = 2;
@@ -245,26 +248,7 @@ var alarmInterval;
                   }
                 });
                 globalScope.house.$save();
-                // =======
-                //                 
-                //                 if ($(".room").css("backgroundColor") !== "rgb(213, 20, 20)") {
-                //                   $(".room").css("backgroundColor", "rgb(213, 20, 20)"); // red
-                //                   $(".room").removeClass("lightsoff");
-                //                   $(".room").addClass("lightson");
-                //                 } else if ($(".room").css("backgroundColor") === "rgb(255, 255, 255)") {
-                //                   $(".room").css("backgroundColor", "rgb(255, 255, 255)"); // white
-                //                   $(".room").removeClass("lightson");
-                //                   $(".room").addClass("lightsoff");
-                //                 } else {
-                //                   $(".room").css("backgroundColor", "#f6f4f4");
-                //                 }
-                //                 
-                //                 console.log($(".room").css("backgroundColor"));
-                //               }
-                //               
-                //               function stopTextColor() {
-                //                 clearInterval(nIntervId);
-                // >>>>>>> fridge
+
               }
               
               if(event.target.getAttribute("occupants") !== null && event.target.getAttribute("occupants").indexOf($(ui.draggable)[0].getAttribute("id"))) {
