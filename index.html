@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="css/onoffswitch.css">
   
   <!-- Google Font Ubuntu -->
-  <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet" type="text/css">
   
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -50,7 +50,7 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
   
   <!-- text to speech -->
-  <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+  <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
   
 </head>
 <body>
@@ -89,7 +89,7 @@
       <li ng-repeat="item in house.fridge">{{item.name}} ({{item.quantity}} {{item.units}})</li>
     </ul>
   </div>
-
+  
 </div>
 
 <!-- for pop-up -->
@@ -99,13 +99,13 @@
     <div id="dialogboxhead"></div>
     <div id="dialogboxbody">
       
-      <div class='panel panel-info'>
+      <div class="panel panel-info">
         <p>Mode:
-          <select name='mode' id='mode'>
-            <option value=''>-</option>
-            <option value='party'>party</option>
-            <option value='lock-down'>lock down</option>
-            <option value='study'>study</option>
+          <select name="mode" id="mode">
+            <option value="">-</option>
+            <option value="party">party</option>
+            <option value="lock-down">lock down</option>
+            <option value="study">study</option>
           </select>
         </p>
         <hr>
@@ -117,44 +117,42 @@
               <span class="onoffswitch-switch"></span>
             </label>
           </div>
-
-        <input type='color' id='light-color'>
-      </p>
-      <hr>
-      <p>Thermostat: <strong><span id='temperature'></span> &deg; </strong>
-        <div class="onoffswitch">
-          <input type="checkbox" name="thermostatswitch" class="onoffswitch-checkbox" id="thermostatswitch">
-          <label class="onoffswitch-label" for="thermostatswitch">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        <input id='temp-slider' type='range' name='temperature' min='60' max='100' onchange='updateTemperature(this.value);'>
-      </p>
-      <hr>
-      <p>Music: <span id="volume"></span>%
-        <div class="onoffswitch">
-          <input type="checkbox" name="musicswitch" class="onoffswitch-checkbox" id="musicswitch">
-          <label class="onoffswitch-label" for="musicswitch">
-            <span class="onoffswitch-inner"></span>
-            <span class="onoffswitch-switch"></span>
-          </label>
-        </div>
-        Source: 
-        <select name='source' id='source'>
-          <option value=''>-</option>
-          <option value='AUX'>AUX</option>
-          <option value='Radio'>Radio</option>
-          <option value='Bluetooth'>Bluetooth</option>
-        </select>
-        <input id='volume-slider' type='range' name='volume' min='0' max='100' onchange='updateVolume(this.value);'>
-      </p>
+          
+          <input type="color" id="light-color">
+        </p>
+        <hr>
+        <p>Thermostat: <strong><span id="temperature"></span> &deg; </strong>
+          <div class="onoffswitch">
+            <input type="checkbox" name="thermostatswitch" class="onoffswitch-checkbox" id="thermostatswitch">
+            <label class="onoffswitch-label" for="thermostatswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+          <input id="temp-slider" type="range" name="temperature" min="60" max="100" onchange="updateTemperature(this.value);">
+        </p>
+        <hr>
+        <p>Music: <span id="volume"></span>%
+          <div class="onoffswitch">
+            <input type="checkbox" name="musicswitch" class="onoffswitch-checkbox" id="musicswitch">
+            <label class="onoffswitch-label" for="musicswitch">
+              <span class="onoffswitch-inner"></span>
+              <span class="onoffswitch-switch"></span>
+            </label>
+          </div>
+          Source: 
+          <select name="source" id="source">
+            <option value="">-</option>
+            <option value="AUX">AUX</option>
+            <option value="Radio">Radio</option>
+            <option value="Bluetooth">Bluetooth</option>
+          </select>
+          <input id="volume-slider" type="range" name="volume" min="0" max="100" onchange="updateVolume(this.value);">
+        </p>
+      </div>
     </div>
+    <div id="dialogboxfoot"></div>
   </div>
-  <div id="dialogboxfoot"></div>
-</div>
-</div>
-
 </div>
 
 </body>
