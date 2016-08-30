@@ -37,6 +37,10 @@ body {
   margin: 5px;
 }
 
+.user:hover {
+  cursor: pointer;
+}
+
 .user-div {
   height: 90px;
   width: 40px;
@@ -76,6 +80,12 @@ body {
   padding: 10px;
   border: 2px solid #acacac; /* 7d400e */
   border-radius: 1px;
+  transition: border 0.5s;
+}
+
+.room:hover {
+  border: 2px solid yellow;
+  cursor: pointer;
 }
 
 #bedroom1 {
