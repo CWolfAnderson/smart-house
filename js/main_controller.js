@@ -1,4 +1,3 @@
-console.clear();
 var usertalking = "";
 var currentRoom;
 var globalScope;
@@ -235,7 +234,7 @@ var alarmInterval;
                 
                 alarmInterval = setInterval(flashColor, 500);
                 
-                $("body").append("<button onclick=stopAlarm() class='coastclear'>Coast Clear</button>");
+                $("body").append("<button onclick=stopAlarm() class='btn btn-success coastclear'>Coast Clear</button>");
               }
               
               function flashColor() {

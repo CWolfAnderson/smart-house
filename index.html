@@ -4,36 +4,33 @@
   
   <link rel="shortcut icon" type="image/png" href="img/house.png"/>
   <meta charset="utf-8">
-  <title>JOSE</title>
+  <title>Smart House</title>
   
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   
-  <!-- speech recognition styles -->
+  <!-- Speech Recognition CSS -->
   <link rel="stylesheet" href="css/speech_recognition.css">
   
-  <!-- custom stylesheet -->
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
   
-  <!-- stylesheet for onoffswitch -->
+  <!-- On/Off Switch CSS -->
   <link rel="stylesheet" href="css/onoffswitch.css">
-  
-  <!-- Google Font Ubuntu -->
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet" type="text/css">
   
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   
-  <!-- include angularjs -->
+  <!-- Angular JS -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
   
-  <!-- include firebase -->
+  <!-- Firebase JS -->
   <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
   
-  <!-- include angularfire -->
+  <!-- Angularfire JS -->
   <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
   
-  <!-- custom angularfire -->
+  <!-- Custom Angularfire -->
   <script src="js/main_controller.js"></script>
   
   <!-- jQuery UI (allows draggable()) -->
@@ -42,14 +39,14 @@
   <!-- Bootstrap JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   
-  <!-- custom js -->
+  <!-- Custom JS -->
   <script src="js/scripts.js"></script>
   
-  <!-- speech recognition -->
+  <!-- Speech Recognition -->
   <script src="http://cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
   
-  <!-- text to speech -->
+  <!-- Text to Speech -->
   <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
   
 </head>
@@ -57,13 +54,33 @@
   
   <div class="container" ng-controller="houseController">
     
-    <h1>Judicious Online Super Edifice</h1>
+    <div id="logo">
+      <p>Smart House</p>
+    </div>
     
-    <!-- button to control the entire house -->
-    <p>
-      <a href="pages/users.html" class="btn btn-info" role="button">Users</a>
-      <a href="pages/help.html" class="btn btn-info" role="button">Help</a>
-    </p>
+    <hr>
+    
+    <div id="header">
+      <h4 class="indent">
+        This web app is meant to display what it would look like if you had a "smart house". This is the graphical user interface users would see to make sure everything is as comfortable as possible in their home.      
+      </h4>
+      <h5>Instructions:</h5>
+      <p class="indent">
+        <span class="glyphicon glyphicon-home margin-right-5" aria-hidden="true"> </span><strong>Drag & drop</strong> people to simulate people walking from one room to another. Dragging the person labeled "unknown" will trigger an alarm which (in theory) would notify the police. Click "Coast Clear" on left to silence the alarm.
+      </p>
+      <p class="indent">
+        <span class="glyphicon glyphicon-home margin-right-5" aria-hidden="true"> </span><strong>Double click</strong> on a room to change the room settings (light color, temperature, audio, etc.).
+      </p>
+      <p class="indent">
+        <span class="glyphicon glyphicon-home margin-right-5" aria-hidden="true"> </span><strong>Double click</strong> a person to simulate them talking. For a list of all available speech commands click <a href="pages/help.html">here</a>.
+      </p>
+      <p class="indent">
+        <span class="glyphicon glyphicon-home margin-right-5" aria-hidden="true"> </span>For a list of all users and to create users, click <a href="pages/users.html">here</a>.
+      </p>
+      <p class="indent">
+        <strong>Important Note:</strong> This website works best in <a href="https://www.google.com/chrome/browser/desktop/">Google Chrome</a>.  
+      </p>
+    </div>
     
     <div ng-repeat="(guid, user) in house.users" id="{{guid}}" status="{{user.status}}" class="draggable user user-div" data-toggle="popover" data-content="Priority: {{user.priority}}<br/>Status: {{user.status}}" title="{{user.name}}" name="{{user.name}}" data-trigger="hover" data-placement="right">
     <img ng-src="img/stick-figure.png" width="40" height="90" style="padding-bottom: 0.5em;" ng-dblclick="userClick(user, guid)">
@@ -81,14 +98,16 @@
       <p class="mode-display" ng-if="room.mode">Mode: {{room.mode}}</p>
       <p class="temp-display" ng-if="room.thermostat.on">{{room.thermostat.temp}}&deg;</p>
     </div>
+    
+    <div id="fridge">
+      <strong>Fridge</strong>
+      <ul>
+        <li ng-repeat="item in house.fridge">{{item.name}} ({{item.quantity}} {{item.units}})</li>
+      </ul>
+    </div>
+    
   </div>
   
-  <div id="fridge">
-    <strong>Fridge</strong>
-    <ul>
-      <li ng-repeat="item in house.fridge">{{item.name}} ({{item.quantity}} {{item.units}})</li>
-    </ul>
-  </div>
   
 </div>
 
